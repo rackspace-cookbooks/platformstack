@@ -1,7 +1,12 @@
-include_recipe 'rackspace_iptables'
+include_recipe 'rackspace_iptables::default'
+if node['openssh']['server'].attribute?('port')
+  ssh_port = node['openssh']['server']['port']
+else
+  ssh_port = '22'
+end
 
 if node['platformstack']['iptables']['allow_ssh_from_world'] == true
-  add_iptables_rule('INPUT', '-m tcp -p tcp --dport 22 -j ACCEPT', 9999, 'Allow ssh from the world')
+  add_iptables_rule('INPUT', "-m tcp -p tcp --dport #{ssh_port} -j ACCEPT", 9999, 'Allow ssh from the world')
 end
 
 # Return

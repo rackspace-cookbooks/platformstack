@@ -8,4 +8,5 @@ version '0.1.0'
 
 depends 'rackspace_iptables', '>= 1.3.1'
 depends 'user', '>= 0.3.0'
-depends 'chef-sugar'
+depends 'openssh', '>= 1.3.0'
+depends 'chef-sugar', '>= 1.3.0'
