@@ -1,0 +1,16 @@
+type: agent.disk
+label: Disk check on <%= default['platformstack']['cloud_monitoring']['disk']['target'] %>
+disabled: <%= node['platformstack']['cloud_monitoring']['disk']['disabled'] %>
+period: <%= node['platformstack']['cloud_monitoring']['disk']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['disk']['timeout'] %>
+details:
+  target: <%= node['platformstack']['cloud_monitoring']['disk']['target'] %>
+<% if node['platformstack']['cloud_monitoring']['disk']['alarm'] == true %>
+alarms:
+    alarm-disk:
+        label: usage on <%= node['platformstack']['cloud_monitoring']['disk']['target'] %>
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            <%= node['platformstack']['cloud_monitoring']['disk']['alarm_criteria'] %>
+<% end %>
+

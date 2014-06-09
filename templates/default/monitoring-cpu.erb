@@ -1,0 +1,19 @@
+type: agent.cpu
+label: CPU
+disabled: <%= default['platformstack']['cloud_monitoring']['cpu']['enabled'] %>
+period: <%= node['platformstack']['cloud_monitoring']['cpu']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['cpu']['timeout'] %>
+<% if cloud_monitoring_cpu_alarm == true %>
+alarms:
+    alarm-cpu:
+        label: CPU Usage
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (metric['usage_average'] > <%= node['platformstack']['cloud_monitoring']['cpu']['crit'] %> ) {
+              return new AlarmStatus(CRITICAL, 'CPU usage is #{usage_average}%, above your critical threshold of <%= node['platformstack']['cloud_monitoring']['cpu']['crit'] %>%');
+            }
+            if (metric['usage_average'] > <%= node['platformstack']['cloud_monitoring']['cpu']['warn'] %> ) {
+              return new AlarmStatus(WARNING, 'CPU usage is #{usage_average}%, above your warning threshold of <%= node['platformstack']['cloud_monitoring']['cpu']['warn'] %>%');
+            }
+            return new AlarmStatus(OK, 'CPU usage is #{usage_average}%, below your warning threshold of <%= node['platformstack']['cloud_monitoring']['cpu']['warn'] %>%');
+<% end %>

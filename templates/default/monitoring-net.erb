@@ -1,0 +1,33 @@
+type: agent.network
+label: Network check on <%= node['platformstack']['cloud_monitoring']['network']['target'] %>
+disabled: <%= node['platformstack']['cloud_monitoring']['network']['disabled'] %>
+period: <%= node['platformstack']['cloud_monitoring']['network']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['network']['timeout'] %>
+details:
+  target: <%= node['platformstack']['cloud_monitoring']['network']['target'] %>
+<% if node['platformstack']['cloud_monitoring']['network']['alarm'] == true %>
+alarms:
+    alarm-network-receive:
+        label: Network receive rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %>
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (rate(metric['rx_bytes']) > <%= node['platformstack']['cloud_monitoring']['network']['recv']['crit'] %> ) {
+              return new AlarmStatus(CRITICAL, "Network receive rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is above your critical threshold of <%= node['platformstack']['cloud_monitoring']['network']['recv']['crit'] %>B/s");
+            }
+            if (rate(metric['rx_bytes']) > <%= node['platformstack']['cloud_monitoring']['network']['recv']['warn'] %> ) {
+              return new AlarmStatus(WARNING, "Network receive rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is above your warning threshold of <%= node['platformstack']['cloud_monitoring']['network']['recv']['warn'] %>B/s");
+            }
+            return new AlarmStatus(OK, "Network receive rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is below your warning threshold of <%= node['platformstack']['cloud_monitoring']['network']['recv']['warn'] %>B/s");
+    alarm-network-transmit:
+        label: Network transmit rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %>
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (rate(metric['tx_bytes']) > <%= node['platformstack']['cloud_monitoring']['network']['send']['crit'] %>) {
+              return new AlarmStatus(CRITICAL, "Network transmit rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is above your critical threshold of <%= node['platformstack']['cloud_monitoring']['network']['send']['crit'] %>B/s");
+            }
+            if (rate(metric['tx_bytes']) > <%= node['platformstack']['cloud_monitoring']['network']['send']['warn'] %>) {
+              return new AlarmStatus(WARNING, "Network transmit rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is above your warning threshold of <%= node['platformstack']['cloud_monitoring']['network']['send']['warn'] %>B/s");
+            }
+            return new AlarmStatus(OK, "Network transmit rate on <%= node['platformstack']['cloud_monitoring']['network']['target'] %> is below your warning threshold of <%= node['platformstack']['cloud_monitoring']['network']['send']['warn'] %>B/s");
+<% end %>
+

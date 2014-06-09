@@ -1,0 +1,19 @@
+type: agent.load_average
+label: Load Average
+disabled: <%= node['platformstack']['cloud_monitoring']['load']['disabled'] %>
+period: <%= ['platformstack']['cloud_monitoring']['load']['period'] %>
+timeout: <%= ['platformstack']['cloud_monitoring']['load']['timeout'] %>
+<%= if node['platformstack']['cloud_monitoring']['load']['alarm'] == true %>
+alarms:
+    alarm-load-average:
+        label: High Load Average
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (metric['5m'] > <%= node['platformstack']['cloud_monitoring']['load']['crit'] %>
+              return new AlarmStatus(CRITICAL, '5 minute load average is #{5m}, above your critical threshold of <%= node['platformstack']['cloud_monitoring']['load']['crit'] %>');
+            }
+            if (metric['5m'] > <%= node['platformstack']['cloud_monitoring']['load']['warn'] %>
+              return new AlarmStatus(WARNING, '5 minute load average is #{5m}, above your warning threshold of <%= node['platformstack']['cloud_monitoring']['load']['warn']  %>');
+            }
+            return new AlarmStatus(OK, '5 minute load average is #{5m}, below your warning threshold of <%= node['platformstack']['cloud_monitoring']['load']['warn']  %>');
+<% end %>

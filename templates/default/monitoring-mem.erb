@@ -1,0 +1,19 @@
+type: agent.memory
+label: Memory
+disabled: <%= node['platformstack']['cloud_monitoring']['memory']['disabled'] %>
+period: <%= node['platformstack']['cloud_monitoring']['memory']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['memory']['timeout'] %>
+<%= if node['platformstack']['cloud_monitoring']['memory']['alarm'] == true %>
+alarms:
+    alarm-memory:
+        label: Memory Usage
+        notification_plan_id: npTechnicalContactsEmail
+        criteria: |
+            if (percentage(metric['actual_used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['memory']['crit'] %> ) {
+              return new AlarmStatus(CRITICAL, "Memory usage is above your critical threshold of <%= node['platformstack']['cloud_monitoring']['memory']['crit'] %>%");
+            }
+            if (percentage(metric['actual_used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['memory']['warn'] %> ) {
+              return new AlarmStatus(WARNING, "Memory usage is above your warning threshold of <%= node['platformstack']['cloud_monitoring']['memory']['warn'] %>%");
+            }
+            return new AlarmStatus(OK, "Memory usage is below your warning threshold of <%= node['platformstack']['cloud_monitoring']['memory']['warn'] %>%");
+<% end %>
