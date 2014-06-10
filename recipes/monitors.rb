@@ -10,8 +10,8 @@ when 'debian'
 when 'rhel'
   yum_repository 'monitoring' do
     description 'Rackspace Cloud Monitoring agent repo'
-    baseurl "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['lsb']['release']}-x86_64"
-    gpgkey "https://monitoring.api.rackspacecloud.com/pki/agent/#{node['platform']}-#{node['lsb']['release']}.asc"
+    baseurl "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['platform_version'][0]}-x86_64"
+    gpgkey "https://monitoring.api.rackspacecloud.com/pki/agent/#{node['platform']}-#{node['platform_version'][0]}.asc"
     enabled true
     gpgcheck true
     action :add
