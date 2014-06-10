@@ -3,7 +3,7 @@ label: Load Average
 disabled: <%= node['platformstack']['cloud_monitoring']['load']['disabled'] %>
 period: <%= ['platformstack']['cloud_monitoring']['load']['period'] %>
 timeout: <%= ['platformstack']['cloud_monitoring']['load']['timeout'] %>
-<%= if node['platformstack']['cloud_monitoring']['load']['alarm'] == true %>
+<% if node['platformstack']['cloud_monitoring']['load']['alarm'] == true %>
 alarms:
     alarm-load-average:
         label: High Load Average
