@@ -1,6 +1,6 @@
 log 'run the default stuff last' do
   level :debug
-  notifies :create, 'rubt_block[platformstack]', :delayed
+  notifies :create, 'ruby_block[platformstack]', :delayed
 end
 
 ruby_block 'platformstack' do
