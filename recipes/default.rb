@@ -1,3 +1,7 @@
+if node['platformstack']['enable_postfix'] == true
+  include_recipe 'postfix'
+end
+
 log 'run the default stuff last' do
   level :debug
   notifies :create, 'ruby_block[platformstack]', :delayed
