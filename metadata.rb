@@ -4,7 +4,7 @@ maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides a full Tomcat stack'
 
-version '0.1.0'
+version '0.1.1'
 
 depends 'apt'
 depends 'chef-sugar'
