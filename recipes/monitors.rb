@@ -21,3 +21,22 @@ end
 package 'rackspace-monitoring-agent' do
   action :upgrade
 end
+
+unless ( node['platformstack']['cloud_monitoring']['rs_username'].nil? || node['platformstack']['cloud_monitoring']['rs_apikey'].nil? )
+  execute 'agent-setup' do
+    command "rackspace-monitoring-agent --setup --username #{node['platformstack']['cloud_monitoring']['rs_username']} --apikey #{node['platformstack']['cloud_monitoring']['rs_apikey']}"
+    creates '/etc/rackspace-monitoring-agent.cfg'
+    action :run
+  end
+  service 'rackspace-monitoring-agent' do
+    supports restart: true
+    action [ :enable, :start ]
+  end
+end
+
+directory 'rackspace-monitoring-agent-confd' do
+  path '/etc/rackspace-monitoring-agent.conf.d'
+  owner 'root'
+  group 'root'
+  mode 00755
+end

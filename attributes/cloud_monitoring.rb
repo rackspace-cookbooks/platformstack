@@ -45,3 +45,5 @@ default['platformstack']['cloud_monitoring']['network']['recv']['warn'] = 56000
 default['platformstack']['cloud_monitoring']['network']['send']['crit'] = 76000
 default['platformstack']['cloud_monitoring']['network']['send']['warn'] = 56000
 
+default['platformstack']['cloud_monitoring']['rs_username'] = nil
+default['platformstack']['cloud_monitoring']['rs_apikey'] = nil
