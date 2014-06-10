@@ -5,17 +5,20 @@ end
 
 ruby_block 'platformstack' do
   block do
-    Chef::DSL::IncludeRecipe('platformstack::iptables')
-    Chef::DSL::IncludeRecipe('platformstack::ntp')
-    Chef::DSL::IncludeRecipe('platformstack::openssh')
-    Chef::DSL::IncludeRecipe('platformstack::timezone')
-    Chef::DSL::IncludeRecipe('platformstack::logstash_rsyslog')
+    run_context.include_recipe('platformstack::iptables')
+#                              'platformstack::ntp',
+#                              'platformstack::openssh',
+#                              'platformstack::timezone',
+#                              'platformstack::logstash_rsyslog',
+#                              'platformstack::monitors',
+#                              'platformstack::newrelic'])
+    run_context.include_recipe('platformstack::ntp')
+    run_context.include_recipe('platformstack::openssh')
+    run_context.include_recipe('platformstack::timezone')
+    run_context.include_recipe('platformstack::logstash_rsyslog')
+    run_context.include_recipe('platformstack::monitors')
+    unless node['newrelic']['license'].nil?
+      run_context.include_recipe('platformstack::newrelic')
+    end
   end
 end
-#include_recipe 'platformstack::iptables'
-#include_recipe 'platformstack::ntp'
-#include_recipe 'platformstack::openssh'
-#include_recipe 'platformstack::timezone'
-#include_recipe 'platformstack::logstash_rsyslog'
-#include_recipe 'platformstack::monitors'
-#include_recipe 'platformstack::newrelic'

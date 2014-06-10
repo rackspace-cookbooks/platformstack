@@ -1,12 +1,11 @@
 case node['platform_family']
 when 'debian'
   apt_repository 'monitoring' do
-    uri 'https://stable.packages.cloudmonitoring.rackspace.com'
-    distribution "#{node['platform']}-#{node['lsb']['codename']}-x86_64"
+    uri "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['lsb']['release']}-x86_64"
+    distribution 'cloudmonitoring'
     components ['main']
-    keyserver 'keyserver.ubuntu.com'
-    key 'D05AB914'
-    action :create
+    key 'https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc'
+    action :add
   end
 when 'rhel'
   yum_repository 'monitoring' do
@@ -15,7 +14,7 @@ when 'rhel'
     gpgkey "https://monitoring.api.rackspacecloud.com/pki/agent/#{node['platform']}-#{node['lsb']['release']}.asc"
     enabled true
     gpgcheck true
-    action :create
+    action :add
   end
 end
 
