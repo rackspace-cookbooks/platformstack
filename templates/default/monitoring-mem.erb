@@ -3,7 +3,7 @@ label: Memory
 disabled: <%= node['platformstack']['cloud_monitoring']['memory']['disabled'] %>
 period: <%= node['platformstack']['cloud_monitoring']['memory']['period'] %>
 timeout: <%= node['platformstack']['cloud_monitoring']['memory']['timeout'] %>
-<%= if node['platformstack']['cloud_monitoring']['memory']['alarm'] == true %>
+<% if node['platformstack']['cloud_monitoring']['memory']['alarm'] == true %>
 alarms:
     alarm-memory:
         label: Memory Usage

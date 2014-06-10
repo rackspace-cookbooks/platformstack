@@ -5,7 +5,7 @@ period: <%= node['platformstack']['cloud_monitoring']['filesystem']['period'] %>
 timeout: <%= node['platformstack']['cloud_monitoring']['filesystem']['timeout'] %>
 details:
   target: <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
-<%= if node['platformstack']['cloud_monitoring']['filesystem']['alarm'] == true%>
+<% if node['platformstack']['cloud_monitoring']['filesystem']['alarm'] == true %>
 alarms:
     alarm-disk-size:
         label: usage on <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
