@@ -15,6 +15,7 @@ ruby_block 'platformstack' do
     run_context.include_recipe('platformstack::monitors')
     if node['platformstack']['enable_postfix'] == true
       run_context.include_recipe('postfix::default')
+    end
     unless node['newrelic']['license'].nil?
       run_context.include_recipe('platformstack::newrelic')
     end
