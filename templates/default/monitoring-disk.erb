@@ -1,5 +1,5 @@
 type: agent.disk
-label: Disk check on <%= default['platformstack']['cloud_monitoring']['disk']['target'] %>
+label: Disk check on <%= node['platformstack']['cloud_monitoring']['disk']['target'] %>
 disabled: <%= node['platformstack']['cloud_monitoring']['disk']['disabled'] %>
 period: <%= node['platformstack']['cloud_monitoring']['disk']['period'] %>
 timeout: <%= node['platformstack']['cloud_monitoring']['disk']['timeout'] %>

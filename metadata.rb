@@ -7,6 +7,7 @@ description 'Provides a full Tomcat stack'
 version '0.1.1'
 
 depends 'apt'
+depends 'chef-client'
 depends 'chef-sugar'
 depends 'logstash_stack'
 depends 'newrelic'
