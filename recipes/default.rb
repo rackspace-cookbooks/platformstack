@@ -25,6 +25,7 @@ ruby_block 'platformstack' do
     unless node['newrelic']['license'].nil?
       run_context.include_recipe('platformstack::newrelic')
     end
+    run_context.include_recipe('rackspace_cloudbackup::default')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
   end
