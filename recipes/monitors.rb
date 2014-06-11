@@ -57,6 +57,7 @@ yaml_monitors.each do |monitor|
     owner 'root'
     group 'root'
     mode '00644'
+    notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
   end
 end
 
