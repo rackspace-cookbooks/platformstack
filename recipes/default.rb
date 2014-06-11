@@ -8,6 +8,7 @@ end
 
 ruby_block 'platformstack' do
   block do
+    run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('platformstack::ntp')
     run_context.include_recipe('platformstack::openssh')
     run_context.include_recipe('platformstack::timezone')
