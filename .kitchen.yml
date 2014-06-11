@@ -4,6 +4,12 @@ driver:
 
 provisioner:
   name: chef_solo
+  require_chef_omnibus: latest
+  attributes:
+    authorization:
+      sudo:
+        users: ['vagrant']
+        passwordless: true
 
 platforms:
   - name: ubuntu-12.04

@@ -14,6 +14,7 @@ ruby_block 'platformstack' do
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('platformstack::monitors')
+    run_context.include_recipe('platformstack::patching')
     unless Chef::Config[:solo] == true
       run_context.include_recipe('chef-client::default')
       run_context.include_recipe('chef-client::delete_validation')
