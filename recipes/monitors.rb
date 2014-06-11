@@ -59,3 +59,8 @@ yaml_monitors.each do |monitor|
     mode '00644'
   end
 end
+
+service 'rackspace-monitoring-agent' do
+  supports start: true, status: true, stop: true
+  action [ 'enable', 'start' ]
+end
