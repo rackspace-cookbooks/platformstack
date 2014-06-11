@@ -17,6 +17,7 @@ ruby_block 'platformstack' do
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('platformstack::monitors')
+    run_context.include_recipe('platformstack::patching')
     unless node['newrelic']['license'].nil?
       run_context.include_recipe('platformstack::newrelic')
     end

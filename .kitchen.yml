@@ -4,10 +4,16 @@ driver:
 
 provisioner:
   name: chef_solo
+  require_chef_omnibus: latest
+  attributes:
+    authorization:
+      sudo:
+        users: ['vagrant']
+        passwordless: true
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.4
+#  - name: centos-6.4
 
 suites:
   - name: default
