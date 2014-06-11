@@ -1,8 +1,8 @@
 type: agent.load_average
 label: Load Average
 disabled: <%= node['platformstack']['cloud_monitoring']['load']['disabled'] %>
-period: <%= ['platformstack']['cloud_monitoring']['load']['period'] %>
-timeout: <%= ['platformstack']['cloud_monitoring']['load']['timeout'] %>
+period: <%= node['platformstack']['cloud_monitoring']['load']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['load']['timeout'] %>
 <% if node['platformstack']['cloud_monitoring']['load']['alarm'] == true %>
 alarms:
     alarm-load-average:
