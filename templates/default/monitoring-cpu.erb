@@ -1,9 +1,9 @@
 type: agent.cpu
 label: CPU
-disabled: <%= default['platformstack']['cloud_monitoring']['cpu']['enabled'] %>
+disabled: <%= node['platformstack']['cloud_monitoring']['cpu']['disabled'] %>
 period: <%= node['platformstack']['cloud_monitoring']['cpu']['period'] %>
 timeout: <%= node['platformstack']['cloud_monitoring']['cpu']['timeout'] %>
-<% if cloud_monitoring_cpu_alarm == true %>
+<% if node['platformstack']['cloud_monitoring']['cpu']['alarm'] == true %>
 alarms:
     alarm-cpu:
         label: CPU Usage

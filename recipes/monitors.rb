@@ -40,3 +40,22 @@ directory 'rackspace-monitoring-agent-confd' do
   group 'root'
   mode 00755
 end
+
+yaml_monitors = %w{
+  monitoring-cpu
+  monitoring-disk
+  monitoring-filesystem
+  monitoring-load
+  monitoring-mem
+  monitoring-net
+}
+
+yaml_monitors.each do |monitor|
+  template "/etc/rackspace-monitoring-agent.conf.d/#{monitor}.yaml" do
+    cookbook 'platformstack'
+    source "#{monitor}.erb"
+    owner 'root'
+    group 'root'
+    mode '00644'
+  end
+end
