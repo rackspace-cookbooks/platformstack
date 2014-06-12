@@ -22,15 +22,11 @@ package 'rackspace-monitoring-agent' do
   action :upgrade
 end
 
-unless ( node['platformstack']['cloud_monitoring']['rs_username'].nil? || node['platformstack']['cloud_monitoring']['rs_apikey'].nil? )
+unless node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   execute 'agent-setup' do
-    command "rackspace-monitoring-agent --setup --username #{node['platformstack']['cloud_monitoring']['rs_username']} --apikey #{node['platformstack']['cloud_monitoring']['rs_apikey']}"
+    command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
     creates '/etc/rackspace-monitoring-agent.cfg'
     action :run
-  end
-  service 'rackspace-monitoring-agent' do
-    supports restart: true
-    action [ :enable, :start ]
   end
 end
 
@@ -41,14 +37,14 @@ directory 'rackspace-monitoring-agent-confd' do
   mode 00755
 end
 
-yaml_monitors = %w{
+yaml_monitors = %w(
   monitoring-cpu
   monitoring-disk
   monitoring-filesystem
   monitoring-load
   monitoring-mem
   monitoring-net
-}
+)
 
 yaml_monitors.each do |monitor|
   template "/etc/rackspace-monitoring-agent.conf.d/#{monitor}.yaml" do
@@ -62,6 +58,6 @@ yaml_monitors.each do |monitor|
 end
 
 service 'rackspace-monitoring-agent' do
-  supports start: true, status: true, stop: true
-  action [ 'enable', 'start' ]
+  supports start: true, status: true, stop: true, restart: true
+  action %w(enable start)
 end
