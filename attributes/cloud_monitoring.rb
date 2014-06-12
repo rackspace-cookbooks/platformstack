@@ -44,3 +44,5 @@ default['platformstack']['cloud_monitoring']['network']['recv']['crit'] = '76000
 default['platformstack']['cloud_monitoring']['network']['recv']['warn'] = '56000'
 default['platformstack']['cloud_monitoring']['network']['send']['crit'] = '76000'
 default['platformstack']['cloud_monitoring']['network']['send']['warn'] = '56000'
+
+default['platformstack']['cloud_monitoring']['enabled'] = true
