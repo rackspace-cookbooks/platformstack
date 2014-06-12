@@ -1,1 +1,1 @@
-default['rackspace']['cloudbakcup']['enabled'] = true
+default['rackspace']['cloudbackup']['enabled'] = true
