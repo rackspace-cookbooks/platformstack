@@ -40,10 +40,7 @@ default['platformstack']['cloud_monitoring']['network']['alarm'] = false
 default['platformstack']['cloud_monitoring']['network']['target'] = 'eth0'
 default['platformstack']['cloud_monitoring']['network']['period'] = 60
 default['platformstack']['cloud_monitoring']['network']['timeout'] = 30
-default['platformstack']['cloud_monitoring']['network']['recv']['crit'] = 76000
-default['platformstack']['cloud_monitoring']['network']['recv']['warn'] = 56000
-default['platformstack']['cloud_monitoring']['network']['send']['crit'] = 76000
-default['platformstack']['cloud_monitoring']['network']['send']['warn'] = 56000
-
-default['platformstack']['cloud_monitoring']['rs_username'] = nil
-default['platformstack']['cloud_monitoring']['rs_apikey'] = nil
+default['platformstack']['cloud_monitoring']['network']['recv']['crit'] = '76000'
+default['platformstack']['cloud_monitoring']['network']['recv']['warn'] = '56000'
+default['platformstack']['cloud_monitoring']['network']['send']['crit'] = '76000'
+default['platformstack']['cloud_monitoring']['network']['send']['warn'] = '56000'
