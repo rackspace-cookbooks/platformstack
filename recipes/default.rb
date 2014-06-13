@@ -1,5 +1,8 @@
 node.default['authorization']['sudo']['include_sudoers_d'] = true
 node.default['chef-client']['log_file'] = '/var/log/chef/client.log'
+node.default['apt']['compile_time_update'] = true
+
+include_recipe 'apt::default'
 
 log 'run the default stuff last' do
   level :debug
