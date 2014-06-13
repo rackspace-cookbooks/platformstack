@@ -1,7 +1,7 @@
 case node['platform']
 when 'debian', 'ubuntu'
   execute 'fix_locale' do
-    command '/usr/sbin/update-locale LANG=en_US.UTF-8'
+    command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
     user 'root'
     action 'run'
   end
