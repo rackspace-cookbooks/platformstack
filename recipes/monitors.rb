@@ -74,6 +74,9 @@ yaml_monitors.each do |monitor|
     owner 'root'
     group 'root'
     mode '00644'
+    variables(
+      cookbook_name: cookbook_name
+    )
     notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
   end
 end

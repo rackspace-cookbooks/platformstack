@@ -32,5 +32,9 @@ when 'redhat', 'centos'
     owner 'root'
     group 'root'
     mode '00644'
+    variables(
+      cookbook_name: cookbook_name
+    )
+    actoin 'create'
   end
 end
