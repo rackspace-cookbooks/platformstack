@@ -35,6 +35,6 @@ when 'redhat', 'centos'
     variables(
       cookbook_name: cookbook_name
     )
-    actoin 'create'
+    action 'create'
   end
 end
