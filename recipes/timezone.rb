@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-if platform_family?('debian')
-  node.default['tz'] = 'Etc/UTC'
-end
+node.default['tz'] = 'Etc/UTC'
 
 include_recipe 'timezone-ii::default'
