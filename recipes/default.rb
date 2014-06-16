@@ -33,24 +33,24 @@ end
 ruby_block 'platformstack' do
   block do
     run_context.include_recipe('platformstack::locale')
-    run_context.include_recipe('ntp::default')
+    run_context.include_recipe('ntp')
     run_context.include_recipe('platformstack::openssh')
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
-    run_context.include_recipe('auto-patch::default')
+    run_context.include_recipe('auto-patch')
     unless Chef::Config[:solo] == true
-      run_context.include_recipe('chef-client::default')
       run_context.include_recipe('chef-client::delete_validation')
       run_context.include_recipe('chef-client::config')
+      run_context.include_recipe('chef-client')
     end
     if node['platformstack']['enable_postfix'] == true
-      run_context.include_recipe('postfix::default')
+      run_context.include_recipe('postfix')
     end
     unless node['newrelic']['license'].nil?
       run_context.include_recipe('platformstack::newrelic')
     end
     if node['rackspace']['cloudbackup']['enabled'] == true
-      run_context.include_recipe('rackspace_cloudbackup::default')
+      run_context.include_recipe('rackspace_cloudbackup')
     end
     if node['rackspace']['cloud_monitoring']['enabled'] == true
       run_context.include_recipe('platformstack::monitors')
