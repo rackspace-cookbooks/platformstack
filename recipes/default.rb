@@ -50,6 +50,9 @@ ruby_block 'platformstack' do
       run_context.include_recipe('platformstack::newrelic')
     end
     if node['rackspace']['cloudbackup']['enabled'] == true
+      run_context.include_recipe('rackspace_cloudbackup::default')
+    end
+    if node['rackspace']['cloud_monitoring']['enabled'] == true
       run_context.include_recipe('platformstack::monitors')
     end
     # run this last because if feels so good
