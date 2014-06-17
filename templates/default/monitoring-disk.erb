@@ -13,7 +13,7 @@ details:
 alarms:
     alarm-disk:
         label: usage on <%= node['platformstack']['cloud_monitoring']['disk']['target'] %>
-        notification_plan_id: npTechnicalContactsEmail
+        notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             <%= node['platformstack']['cloud_monitoring']['disk']['alarm_criteria'] %>
 <% end %>

@@ -11,7 +11,7 @@ timeout: <%= node['platformstack']['cloud_monitoring']['cpu']['timeout'] %>
 alarms:
     alarm-cpu:
         label: CPU Usage
-        notification_plan_id: npTechnicalContactsEmail
+        notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             if (metric['usage_average'] > <%= node['platformstack']['cloud_monitoring']['cpu']['crit'] %> ) {
               return new AlarmStatus(CRITICAL, 'CPU usage is #{usage_average}%, above your critical threshold of <%= node['platformstack']['cloud_monitoring']['cpu']['crit'] %>%');
