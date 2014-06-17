@@ -43,12 +43,11 @@ package 'rackspace-monitoring-agent' do
   action :upgrade
 end
 
-if node['platformstack']['cloud_monitoring']['enabled'] == true
-  execute 'agent-setup' do
-    command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-    creates '/etc/rackspace-monitoring-agent.cfg'
-    action :run
-  end
+execute 'agent-setup' do
+  command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
+  creates '/etc/rackspace-monitoring-agent.cfg'
+  action :run
+ only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
 end
 
 directory 'rackspace-monitoring-agent-confd' do
