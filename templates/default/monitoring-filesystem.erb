@@ -13,7 +13,7 @@ details:
 alarms:
     alarm-disk-size:
         label: usage on <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
-        notification_plan_id: npTechnicalContactsEmail
+        notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             if (percentage(metric['used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['filesystem']['crit']  %> ) {
                 return new AlarmStatus(CRITICAL, 'Disk usage is above <%= node['platformstack']['cloud_monitoring']['filesystem']['crit'] %>%, #{used} out of #{total}');
