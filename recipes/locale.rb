@@ -19,14 +19,14 @@
 # limitations under the License.
 #
 
-case node['platform']
-when 'debian', 'ubuntu'
+case node['platform_family']
+when 'debian'
   execute 'fix_locale' do
     command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
     user 'root'
     action 'run'
   end
-when 'redhat', 'centos'
+when 'redhat'
   template '/etc/sysconfig/i18n' do
     source 'centos-locale.erb'
     owner 'root'

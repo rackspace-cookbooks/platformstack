@@ -11,7 +11,7 @@ timeout: <%= node['platformstack']['cloud_monitoring']['memory']['timeout'] %>
 alarms:
     alarm-memory:
         label: Memory Usage
-        notification_plan_id: npTechnicalContactsEmail
+        notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             if (percentage(metric['actual_used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['memory']['crit'] %> ) {
               return new AlarmStatus(CRITICAL, "Memory usage is above your critical threshold of <%= node['platformstack']['cloud_monitoring']['memory']['crit'] %>%");
