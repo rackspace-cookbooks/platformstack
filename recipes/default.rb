@@ -34,7 +34,7 @@ ruby_block 'platformstack' do
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('platformstack::openssh')
+    run_context.include_recipe('openssh')
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('auto-patch')
