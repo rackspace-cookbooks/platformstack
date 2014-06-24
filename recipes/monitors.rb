@@ -76,6 +76,7 @@ yaml_monitors.each do |monitor|
     variables(
       cookbook_name: cookbook_name
     )
+    only_if node['platformstack']['cloud_monitoring']['enabled'] == true
     notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
   end
 end
