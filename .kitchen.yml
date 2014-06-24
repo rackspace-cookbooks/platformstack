@@ -1,19 +1,29 @@
 ---
 driver:
   name: vagrant
+driver_config:
+  require_chef_omnibus: true
 
 provisioner:
-  name: chef_solo
-  require_chef_omnibus: latest
+  name: chef_zero
+  client_rb:
+    environment: _default
   attributes:
     authorization:
       sudo:
         users: ['vagrant']
         passwordless: true
+    platformstack:
+      cloud_monitoring:
+        enabled: false
+    rackspace:
+      cloudbackup:
+        enabled: false
 
 platforms:
   - name: ubuntu-12.04
   - name: centos-6.4
+  - name: centos-6.5
 
 suites:
   - name: default

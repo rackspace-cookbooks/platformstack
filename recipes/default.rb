@@ -34,7 +34,7 @@ ruby_block 'platformstack' do
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('platformstack::openssh')
+    run_context.include_recipe('openssh')
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('auto-patch')
@@ -49,7 +49,7 @@ ruby_block 'platformstack' do
     unless node['newrelic']['license'].nil?
       run_context.include_recipe('platformstack::newrelic')
     end
-    if node['rackspace']['cloudbackup']['enabled'] == true
+    if node['platformstack']['cloud_backup']['enabled'] == true
       run_context.include_recipe('rackspace_cloudbackup')
     end
     if node['platformstack']['cloud_monitoring']['enabled'] == true
