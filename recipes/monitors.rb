@@ -84,4 +84,5 @@ end
 service 'rackspace-monitoring-agent' do
   supports start: true, status: true, stop: true, restart: true
   action %w(enable start)
+  only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
 end
