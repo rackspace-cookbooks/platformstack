@@ -52,7 +52,9 @@ ruby_block 'platformstack' do
     if node['platformstack']['cloud_backup']['enabled'] == true
       run_context.include_recipe('rackspace_cloudbackup')
     end
-    run_context.include_recipe('platformstack::monitors')
+    if node['platformstack']['cloud_monitoring']['enabled'] == true
+      run_context.include_recipe('platformstack::monitors')
+    end
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
   end

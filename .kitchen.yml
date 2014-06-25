@@ -16,8 +16,7 @@ provisioner:
     platformstack:
       cloud_monitoring:
         enabled: false
-    rackspace:
-      cloudbackup:
+      cloud_backup:
         enabled: false
 
 platforms:
