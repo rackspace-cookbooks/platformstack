@@ -39,15 +39,20 @@ when 'rhel'
   end
 end
 
-package 'rackspace-monitoring-agent' do
-  action :upgrade
-end
-
-execute 'agent-setup' do
-  command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-  creates '/etc/rackspace-monitoring-agent.cfg'
-  action :run
-  only_if { node['platformstack']['cloud_monitoring']['enabled'] == true && File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
+if node['platformstack']['cloud_monitoring']['enabled'] == true && File.size?('/etc/rackspace-monitoring-agent.cfg').nil?
+  if node.key?('cloud')
+    execute 'agent-setup-cloud' do
+      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
+      creates '/etc/rackspace-monitoring-agent.cfg'
+      action 'nothing'
+    end
+  else
+    execute 'agent-setup-hybrid' do
+      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['hybrid_credentials']['username']} --apikey #{node['rackspace']['hybrid_credentials']['api_key']}"
+      creates '/etc/rackspace-monitoring-agent.cfg'
+      action 'nothing'
+    end
+  end
 end
 
 directory 'rackspace-monitoring-agent-confd' do
