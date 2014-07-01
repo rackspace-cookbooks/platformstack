@@ -23,9 +23,7 @@ node.default['authorization']['sudo']['include_sudoers_d'] = true
 node.default['chef-client']['log_file'] = '/var/log/chef/client.log'
 node.default['apt']['compile_time_update'] = true
 
-if platform_family?('debian')
-  include_recipe 'apt::default'
-end
+include_recipe 'apt::default' if platform_family?('debian')
 
 log 'run the default stuff last' do
   level :debug
