@@ -40,6 +40,7 @@ when 'rhel'
 end
 
 if node['platformstack']['cloud_monitoring']['enabled'] == true && File.size?('/etc/rackspace-monitoring-agent.cfg').nil?
+  package 'rackspace-monitoring-agent'
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
