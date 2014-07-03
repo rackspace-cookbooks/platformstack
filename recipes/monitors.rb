@@ -86,6 +86,39 @@ yaml_monitors.each do |monitor|
   end
 end
 
+unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
+  directory '/usr/lib/rackspace-monitoring-agent/plugins' do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode '00755'
+  end
+
+  template '/usr/lib/rackspace-monitoring-agent/plugins/service_mon.sh' do
+    source 'service_mon.sh.erb'
+    owner 'root'
+    group 'root'
+    mode '00755'
+    variables(
+      cookbook_name: cookbook_name
+    )
+  end
+
+  node['platformstack']['cloud_monitoring']['service']['name'].each do |service_name|
+    template "/etc/rackspace-monitoring-agent.conf.d/monitoring-service-#{service_name}.yaml" do
+      source 'monitoring-service.erb'
+      owner 'root'
+      group 'root'
+      mode '00644'
+      variables(
+        cookbook_name: cookbook_name,
+        service_name: service_name
+      )
+      notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
+    end
+  end
+end
+
 node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |disk, mount|
   template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/','_slash_')}.yaml" do
     source 'monitoring-filesystem.erb'
