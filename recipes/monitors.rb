@@ -119,8 +119,8 @@ unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
   end
 end
 
-node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |disk, mount|
-  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/','_slash_')}.yaml" do
+node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk, mount|
+  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/', '_slash_')}.yaml" do
     source 'monitoring-filesystem.erb'
     owner 'root'
     group 'root'

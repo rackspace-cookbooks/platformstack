@@ -3,7 +3,7 @@
 # Attributes:: cloud_monitoring
 #
 # Copyright (C) 2014 Rackspace
-# 
+#
 # All rights reserved - Do Not Redistribute
 #
 
@@ -33,7 +33,7 @@ default['platformstack']['cloud_monitoring']['filesystem']['crit'] = 90
 default['platformstack']['cloud_monitoring']['filesystem']['warn'] = 80
 
 node['filesystem'].each do |key, data|
-  unless data['percent_used'].nil? or data['fs_type'] == 'tmpfs'
+  next unless data['percent_used'].nil? || data['fs_type'] == 'tmpfs'
     default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
   end
 end
