@@ -34,8 +34,7 @@ default['platformstack']['cloud_monitoring']['filesystem']['warn'] = 80
 
 node['filesystem'].each do |key, data|
   next unless data['percent_used'].nil? || data['fs_type'] == 'tmpfs'
-    default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
-  end
+  default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
 end
 
 default['platformstack']['cloud_monitoring']['load']['disabled'] = false
