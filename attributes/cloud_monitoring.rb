@@ -1,3 +1,15 @@
+#
+# Cookbook Name:: platformstack
+# Attributes:: cloud_monitoring
+#
+# Copyright (C) 2014 Rackspace
+# 
+# All rights reserved - Do Not Redistribute
+#
+
+warn_load_threshold = node['cpu']['total'] * 2
+crit_load_threshold = node['cpu']['total'] * 3
+
 default['platformstack']['cloud_monitoring']['cpu']['disabled'] = false
 default['platformstack']['cloud_monitoring']['cpu']['alarm'] = false
 default['platformstack']['cloud_monitoring']['cpu']['period'] = 90
@@ -25,8 +37,8 @@ default['platformstack']['cloud_monitoring']['load']['disabled'] = false
 default['platformstack']['cloud_monitoring']['load']['alarm'] = false
 default['platformstack']['cloud_monitoring']['load']['period'] = 60
 default['platformstack']['cloud_monitoring']['load']['timeout'] = 30
-default['platformstack']['cloud_monitoring']['load']['crit'] = 3
-default['platformstack']['cloud_monitoring']['load']['warn'] = 2
+default['platformstack']['cloud_monitoring']['load']['crit'] = crit_load_threshold
+default['platformstack']['cloud_monitoring']['load']['warn'] = warn_load_threshold
 
 default['platformstack']['cloud_monitoring']['memory']['disabled'] = false
 default['platformstack']['cloud_monitoring']['memory']['alarm'] = false
