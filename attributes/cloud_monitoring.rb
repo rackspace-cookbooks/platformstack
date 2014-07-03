@@ -29,9 +29,14 @@ default['platformstack']['cloud_monitoring']['filesystem']['disabled'] = false
 default['platformstack']['cloud_monitoring']['filesystem']['alarm'] = false
 default['platformstack']['cloud_monitoring']['filesystem']['period'] = 60
 default['platformstack']['cloud_monitoring']['filesystem']['timeout'] = 30
-default['platformstack']['cloud_monitoring']['filesystem']['target'] = '/'
 default['platformstack']['cloud_monitoring']['filesystem']['crit'] = 90
 default['platformstack']['cloud_monitoring']['filesystem']['warn'] = 80
+
+node['filesystem'].each do |key, data|
+  unless data['percent_used'].nil? or data['fs_type'] == 'tmpfs'
+    default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
+  end
+end
 
 default['platformstack']['cloud_monitoring']['load']['disabled'] = false
 default['platformstack']['cloud_monitoring']['load']['alarm'] = false

@@ -66,7 +66,6 @@ end
 yaml_monitors = %w(
   monitoring-cpu
   monitoring-disk
-  monitoring-filesystem
   monitoring-load
   monitoring-mem
   monitoring-net
@@ -84,6 +83,20 @@ yaml_monitors.each do |monitor|
     )
     only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
     notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
+  end
+end
+
+node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |disk, mount|
+  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/','_slash_')}.yaml" do
+    source 'monitoring-filesystem.erb'
+    owner 'root'
+    group 'root'
+    mode '00644'
+    variables(
+      cookbook_name: cookbook_name,
+      mount: mount
+    )
+    notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
   end
 end
 
