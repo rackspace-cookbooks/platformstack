@@ -3,16 +3,16 @@
 #
 
 type: agent.filesystem
-label: Filesystem check on <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
+label: Filesystem check on <%= @mount %>
 disabled: <%= node['platformstack']['cloud_monitoring']['filesystem']['disabled'] %>
 period: <%= node['platformstack']['cloud_monitoring']['filesystem']['period'] %>
 timeout: <%= node['platformstack']['cloud_monitoring']['filesystem']['timeout'] %>
 details:
-  target: <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
+  target: <%= @mount %>
 <% if node['platformstack']['cloud_monitoring']['filesystem']['alarm'] == true %>
 alarms:
     alarm-disk-size:
-        label: usage on <%= node['platformstack']['cloud_monitoring']['filesystem']['target'] %>
+        label: usage on <%= @mount %>
         notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             if (percentage(metric['used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['filesystem']['crit']  %> ) {
@@ -21,5 +21,5 @@ alarms:
             if (percentage(metric['used'], metric['total']) > <%= node['platformstack']['cloud_monitoring']['filesystem']['warn'] %> ) {
                 return new AlarmStatus(WARNING, 'Disk usage is above <%= node['platformstack']['cloud_monitoring']['filesystem']['warn'] %>%, #{used} out of #{total}');
             }
+            return new AlarmStatus(OK, 'Disk usage is below your warning threshold of <%= node['platformstack']['cloud_monitoring']['filesystem']['warn'] %>%, #{used} out of #{total}');
 <% end %>
-
