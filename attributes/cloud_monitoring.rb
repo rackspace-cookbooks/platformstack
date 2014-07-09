@@ -63,11 +63,11 @@ default['platformstack']['cloud_monitoring']['network']['send']['warn'] = '56000
 
 # Currently for service monitoring, the recipe that sets up the service should add:
 # node.default['platformstack']['cloud_monitoring']['service']['name'].push('<service_name>')
-default['1936358-4info']['cloud_monitoring']['service']['name']         = []
-default['1936358-4info']['cloud_monitoring']['service']['disabled']     = false
-default['1936358-4info']['cloud_monitoring']['service']['alarm']        = false
-default['1936358-4info']['cloud_monitoring']['service']['period']       = 60
-default['1936358-4info']['cloud_monitoring']['service']['timeout']      = 30
+default['platformstack']['cloud_monitoring']['service']['name']         = []
+default['platformstack']['cloud_monitoring']['service']['disabled']     = false
+default['platformstack']['cloud_monitoring']['service']['alarm']        = false
+default['platformstack']['cloud_monitoring']['service']['period']       = 60
+default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 
 default['platformstack']['cloud_monitoring']['enabled'] = true
 default['platformstack']['cloud_monitoring']['notification_plan_id'] = 'npTechnicalContactsEmail'
