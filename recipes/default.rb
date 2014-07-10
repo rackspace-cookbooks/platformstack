@@ -30,7 +30,7 @@ log 'run the default stuff last' do
   notifies :create, 'ruby_block[platformstack]', :delayed
 end
 
-ruby_block 'platformstack' do
+ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
@@ -47,7 +47,7 @@ ruby_block 'platformstack' do
       run_context.include_recipe('postfix')
     end
     unless node['newrelic']['license'].nil?
-      run_context.include_recipe('platformstack::newrelic')
+      run_context.include_recipe('newrelic::default')
     end
     if node['platformstack']['cloud_backup']['enabled'] == true
       run_context.include_recipe('rackspace_cloudbackup')
