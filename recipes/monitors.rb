@@ -45,12 +45,7 @@ if node['platformstack']['cloud_monitoring']['enabled'] == true
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
       action 'nothing'
-      only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
-    end
-  else
-    execute 'agent-setup-hybrid' do
-      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['hybrid_credentials']['username']} --apikey #{node['rackspace']['hybrid_credentials']['api_key']}"
-      action 'nothing'
+      # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
     end
   end
