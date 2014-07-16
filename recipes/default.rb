@@ -25,6 +25,11 @@ node.default['apt']['compile_time_update'] = true
 
 include_recipe 'apt::default' if platform_family?('debian')
 
+# install common packages
+package 'statsd' do
+  action 'upgrade' # insures latest version is installed
+end
+
 log 'run the default stuff last' do
   level :debug
   notifies :create, 'ruby_block[platformstack]', :delayed
