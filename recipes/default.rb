@@ -30,11 +30,10 @@ log 'run the default stuff last' do
   notifies :create, 'ruby_block[platformstack]', :delayed
 end
 
-ruby_block 'platformstack' do
+ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('openssh')
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('auto-patch')
@@ -47,13 +46,16 @@ ruby_block 'platformstack' do
       run_context.include_recipe('postfix')
     end
     unless node['newrelic']['license'].nil?
-      run_context.include_recipe('platformstack::newrelic')
+      run_context.include_recipe('newrelic::default')
     end
     if node['platformstack']['cloud_backup']['enabled'] == true
       run_context.include_recipe('rackspace_cloudbackup')
     end
+    run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
+    # down here because iptables sets an attribute for openssh if it's rackconnected
+    run_context.include_recipe('openssh')
   end
 end

@@ -39,18 +39,14 @@ when 'rhel'
   end
 end
 
-if node['platformstack']['cloud_monitoring']['enabled'] == true && File.size?('/etc/rackspace-monitoring-agent.cfg').nil?
+if node['platformstack']['cloud_monitoring']['enabled'] == true
+  package 'rackspace-monitoring-agent'
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-      creates '/etc/rackspace-monitoring-agent.cfg'
       action 'nothing'
-    end
-  else
-    execute 'agent-setup-hybrid' do
-      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['hybrid_credentials']['username']} --apikey #{node['rackspace']['hybrid_credentials']['api_key']}"
-      creates '/etc/rackspace-monitoring-agent.cfg'
-      action 'nothing'
+      # the filesize is zero if the agent has not been configured
+      only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
     end
   end
 end
@@ -65,7 +61,6 @@ end
 yaml_monitors = %w(
   monitoring-cpu
   monitoring-disk
-  monitoring-filesystem
   monitoring-load
   monitoring-mem
   monitoring-net
@@ -83,6 +78,53 @@ yaml_monitors.each do |monitor|
     )
     only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
     notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
+  end
+end
+
+unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
+  directory '/usr/lib/rackspace-monitoring-agent/plugins' do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode '00755'
+  end
+
+  template '/usr/lib/rackspace-monitoring-agent/plugins/service_mon.sh' do
+    source 'service_mon.sh.erb'
+    owner 'root'
+    group 'root'
+    mode '00755'
+    variables(
+      cookbook_name: cookbook_name
+    )
+  end
+
+  node['platformstack']['cloud_monitoring']['service']['name'].each do |service_name|
+    template "/etc/rackspace-monitoring-agent.conf.d/monitoring-service-#{service_name}.yaml" do
+      source 'monitoring-service.erb'
+      owner 'root'
+      group 'root'
+      mode '00644'
+      variables(
+        cookbook_name: cookbook_name,
+        service_name: service_name
+      )
+      notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
+    end
+  end
+end
+
+node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk, mount|
+  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/', '_slash_')}.yaml" do
+    source 'monitoring-filesystem.erb'
+    owner 'root'
+    group 'root'
+    mode '00644'
+    variables(
+      cookbook_name: cookbook_name,
+      mount: mount
+    )
+    notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
   end
 end
 

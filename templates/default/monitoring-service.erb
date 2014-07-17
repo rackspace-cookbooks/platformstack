@@ -1,0 +1,24 @@
+# CHEF MANAGED FILE: DO NOT EDIT
+# Controlling Cookbook: <%= @cookbook_name %>
+#
+
+type: agent.plugin
+label: <%= @service_name %> Service Monitor
+disabled: <%= node['platformstack']['cloud_monitoring']['service']['disabled'] %>
+period: <%= node['platformstack']['cloud_monitoring']['service']['period'] %>
+timeout: <%= node['platformstack']['cloud_monitoring']['service']['timeout'] %>
+details:
+    file: service_mon.sh
+    args: [<%= @service_name %>]
+    timeout: 15000
+<% if node['platformstack']['cloud_monitoring']['service']['alarm'] == true %>
+alarms:
+    alarm-service:
+        label: <%= @service_name %> Service Running
+        notification_plan_id: npkUC0Xuuz
+        criteria: |
+            if (metric['status'] == 'CRITICAL') {
+              return new AlarmStatus(CRITICAL, 'Service <%= @service_name %> is NOT running');
+            }
+            return new AlarmStatus(OK, 'Service <%= @service_name %> is running');
+<% end %>
