@@ -23,6 +23,7 @@ if node['platformstack']['rackconnect'] == true
     user 'rackconnect'
     nopasswd true
   end
+  node.default['openssh']['server']['password_authentication'] = 'yes'
 else
   include_recipe 'rackspace_iptables::default'
 

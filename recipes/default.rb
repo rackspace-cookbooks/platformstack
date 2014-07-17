@@ -34,7 +34,6 @@ ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('openssh')
     run_context.include_recipe('platformstack::timezone')
     run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('auto-patch')
@@ -56,5 +55,7 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('platformstack::monitors')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
+    # down here because iptables sets an attribute for openssh if it's rackconnected
+    run_context.include_recipe('openssh')
   end
 end
