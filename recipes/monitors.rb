@@ -59,24 +59,24 @@ directory 'rackspace-monitoring-agent-confd' do
 end
 
 yaml_monitors = %w(
-  monitoring-cpu
-  monitoring-disk
-  monitoring-load
-  monitoring-mem
-  monitoring-net
+  cpu
+  disk
+  load
+  memory
+  network
 )
 
 yaml_monitors.each do |monitor|
-  template "/etc/rackspace-monitoring-agent.conf.d/#{monitor}.yaml" do
-    cookbook 'platformstack'
-    source "#{monitor}.erb"
+  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-#{monitor}.yaml" do
+    cookbook node['platformstack']['cloud_monitoring'][monitor]['cookbook']
+    source "monitoring-#{monitor}.erb"
     owner 'root'
     group 'root'
     mode '00644'
     variables(
       cookbook_name: cookbook_name
     )
-    only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
+    only_if { node['platformstack']['cloud_monitoring'][monitor]['disabled'] == false }
     notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
   end
 end
@@ -88,8 +88,8 @@ unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
     group 'root'
     mode '00755'
   end
-
   template '/usr/lib/rackspace-monitoring-agent/plugins/service_mon.sh' do
+    cookbook node['platformstack']['cloud_monitoring']['service_mon']['cookbook']
     source 'service_mon.sh.erb'
     owner 'root'
     group 'root'
@@ -98,9 +98,9 @@ unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
       cookbook_name: cookbook_name
     )
   end
-
   node['platformstack']['cloud_monitoring']['service']['name'].each do |service_name|
     template "/etc/rackspace-monitoring-agent.conf.d/monitoring-service-#{service_name}.yaml" do
+      cookbook node['platformstack']['cloud_monitoring']['service']['cookbook']
       source 'monitoring-service.erb'
       owner 'root'
       group 'root'
@@ -110,12 +110,14 @@ unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
         service_name: service_name
       )
       notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
+      only_if { node['platformstack']['cloud_monitoring']['service']['disabled'] == false }
     end
   end
 end
 
 node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk, mount|
   template "/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-#{mount.gsub('/', '_slash_')}.yaml" do
+    cookbook node['platformstack']['cloud_monitoring']['filesystem']['cookbook']
     source 'monitoring-filesystem.erb'
     owner 'root'
     group 'root'
@@ -125,6 +127,7 @@ node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk
       mount: mount
     )
     notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
+    only_if { node['platformstack']['cloud_monitoring']['filesystem']['disabled'] == false }
   end
 end
 
