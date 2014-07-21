@@ -6,6 +6,10 @@ description 'Provides a full Tomcat stack'
 
 version '0.3.2'
 
+%w(ubuntu debian redhat centos).each do |os|
+  supports os
+end
+
 depends 'apt'
 depends 'auto-patch'
 depends 'chef-client'
