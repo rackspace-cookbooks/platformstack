@@ -52,6 +52,7 @@ ruby_block 'platformstack' do # ~FC014
       run_context.include_recipe('rackspace_cloudbackup')
     end
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
+    run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')

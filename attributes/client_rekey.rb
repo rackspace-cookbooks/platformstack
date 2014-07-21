@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-default['platformstack']['cloud_backup']['enabled'] = true
+default['platformstack']['client_rekey']['enabled'] = false
