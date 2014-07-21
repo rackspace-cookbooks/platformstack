@@ -18,6 +18,8 @@ provisioner:
         enabled: false
       cloud_backup:
         enabled: false
+      omnibus_updater:
+        enabled: false
 
 platforms:
   - name: ubuntu-12.04
