@@ -34,14 +34,10 @@ default['platformstack']['cloud_monitoring']['filesystem']['timeout'] = 30
 default['platformstack']['cloud_monitoring']['filesystem']['crit'] = 90
 default['platformstack']['cloud_monitoring']['filesystem']['warn'] = 80
 default['platformstack']['cloud_monitoring']['filesystem']['cookbook'] = 'platformstack'
+default['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'] = %(tmpfs devtmpfs devpts proc mqueue cgroup efivars sysfs sys securityfs configfs fusectl)
 
 node['filesystem'].each do |key, data|
-  next if data['percent_used'].nil? || data['fs_type'] == ('tmpfs' || 'devtmpfs' ||
-                                                           'devpts' || 'proc' ||
-                                                           'mqueue' || 'cgroup' ||
-                                                           'efivars' || 'sysfs' ||
-                                                           'sys' || 'securityfs' ||
-                                                           'configfs' || 'fusectl')
+  next if data['percent_used'].nil? || default['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].include?(data['fs_type'])
   default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
 end
 
