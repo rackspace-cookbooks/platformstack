@@ -36,7 +36,6 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
     run_context.include_recipe('timezone-ii')
-    run_context.include_recipe('platformstack::logstash_rsyslog')
     run_context.include_recipe('auto-patch')
     unless Chef::Config[:solo] == true
       run_context.include_recipe('chef-client::delete_validation')
@@ -53,6 +52,7 @@ ruby_block 'platformstack' do # ~FC014
       run_context.include_recipe('rackspace_cloudbackup')
     end
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
+    run_context.include_recipe('logstash_stack::rsyslog_client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
