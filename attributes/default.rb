@@ -1,6 +1,5 @@
 #
 # Cookbook Name:: platformstack
-# Recipe:: timezone
 #
 # Author:: Matthew Thode <matt.thode@rackspace.com>
 #
@@ -19,6 +18,5 @@
 # limitations under the License.
 #
 
-node.default['tz'] = 'Etc/UTC'
-
-include_recipe 'timezone-ii::default'
+default['rackspace']['cloud_credentials']['username'] = nil
+default['rackspace']['cloud_credentials']['api_key'] = nil

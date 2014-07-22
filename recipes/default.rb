@@ -22,6 +22,7 @@
 node.default['authorization']['sudo']['include_sudoers_d'] = true
 node.default['chef-client']['log_file'] = '/var/log/chef/client.log'
 node.default['apt']['compile_time_update'] = true
+node.default['tz'] = 'Etc/UTC'
 
 include_recipe 'apt::default' if platform_family?('debian')
 
@@ -34,24 +35,18 @@ ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('platformstack::timezone')
-    run_context.include_recipe('platformstack::logstash_rsyslog')
+    run_context.include_recipe('timezone-ii')
     run_context.include_recipe('auto-patch')
     unless Chef::Config[:solo] == true
       run_context.include_recipe('chef-client::delete_validation')
       run_context.include_recipe('chef-client::config')
       run_context.include_recipe('chef-client')
     end
-    if node['platformstack']['enable_postfix'] == true
-      run_context.include_recipe('postfix')
-    end
-    unless node['newrelic']['license'].nil?
-      run_context.include_recipe('newrelic::default')
-    end
-    if node['platformstack']['cloud_backup']['enabled'] == true
-      run_context.include_recipe('rackspace_cloudbackup')
-    end
+    run_context.include_recipe('postfix') if node['platformstack']['enable_postfix'] == true
+    run_context.include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
+    run_context.include_recipe('rackspace_cloudbackup') if node['platformstack']['cloud_backup']['enabled'] == true
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
+    run_context.include_recipe('logstash_stack::rsyslog_client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')

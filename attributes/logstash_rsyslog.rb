@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-default['platformstack']['enable_logstash_rsyslog']	= false
+default['platformstack']['logstash_rsyslog']['enabled'] = false

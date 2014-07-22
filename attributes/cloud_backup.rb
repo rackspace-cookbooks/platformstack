@@ -18,4 +18,8 @@
 # limitations under the License.
 #
 
-default['platformstack']['cloud_backup']['enabled'] = true
+if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
+  default['platformstack']['cloud_backup']['enabled'] = false
+else
+  default['platformstack']['cloud_backup']['enabled'] = true
+end
