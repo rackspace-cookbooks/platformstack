@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-default['platformstack']['enable_postfix'] = false
+default['platformstack']['postfix']['enabled'] = false
