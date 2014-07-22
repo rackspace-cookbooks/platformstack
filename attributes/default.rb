@@ -18,8 +18,5 @@
 # limitations under the License.
 #
 
-if nil == node['rackspace']['cloud_credentials']['username'] || node['rackspace']['cloud_credentials']['api_key']
-  default['platformstack']['cloud_backup']['enabled'] = false
-else
-  default['platformstack']['cloud_backup']['enabled'] = true
-end
+node['rackspace']['cloud_credentials']['username'] nil
+node['rackspace']['cloud_credentials']['api_key'] = nil

@@ -89,5 +89,9 @@ default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 default['platformstack']['cloud_monitoring']['service']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platformstack'
 
-default['platformstack']['cloud_monitoring']['enabled'] = true
+if nil == node['rackspace']['cloud_credentials']['username'] || node['rackspace']['cloud_credentials']['api_key']
+  default['platformstack']['cloud_monitoring']['enabled'] = false
+else
+  default['platformstack']['cloud_monitoring']['enabled'] = true
+end
 default['platformstack']['cloud_monitoring']['notification_plan_id'] = 'npTechnicalContactsEmail'
