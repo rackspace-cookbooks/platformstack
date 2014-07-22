@@ -89,7 +89,7 @@ default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 default['platformstack']['cloud_monitoring']['service']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platformstack'
 
-if nil == node['rackspace']['cloud_credentials']['username'] || node['rackspace']['cloud_credentials']['api_key']
+if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   default['platformstack']['cloud_monitoring']['enabled'] = false
 else
   default['platformstack']['cloud_monitoring']['enabled'] = true
