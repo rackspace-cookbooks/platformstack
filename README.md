@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/rackspace-cookbooks/platformstack.png?label=ready&title=Ready)](https://waffle.io/rackspace-cookbooks/platformstack)
 # PlatformStack
 
 This cookbook installs and sets up commonly used things that we consider useful or standard (such as setting the timezone to UTC).
