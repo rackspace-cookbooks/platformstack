@@ -18,7 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-agent_install_command = "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
 
 case node['platform_family']
 when 'debian'
@@ -29,7 +28,6 @@ when 'debian'
     key 'https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc'
     action :add
   end
-  #agent_install_command = "sudo rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
 when 'rhel'
   yum_repository 'monitoring' do
     description 'Rackspace Cloud Monitoring agent repo'
@@ -39,14 +37,13 @@ when 'rhel'
     gpgcheck true
     action :add
   end
-  agent_install_command = "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
 end
 
 if node['platformstack']['cloud_monitoring']['enabled'] == true
   package 'rackspace-monitoring-agent'
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
-      command agent_install_command
+      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
       action :run
       # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
