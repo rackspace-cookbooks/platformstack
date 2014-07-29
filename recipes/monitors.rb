@@ -44,7 +44,7 @@ if node['platformstack']['cloud_monitoring']['enabled'] == true
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-      action 'run'
+      action :run
       # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
     end
@@ -88,6 +88,7 @@ unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
     group 'root'
     mode '00755'
   end
+
   template '/usr/lib/rackspace-monitoring-agent/plugins/service_mon.sh' do
     cookbook node['platformstack']['cloud_monitoring']['service_mon']['cookbook']
     source 'service_mon.sh.erb'
@@ -130,6 +131,59 @@ node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk
     only_if { node['platformstack']['cloud_monitoring']['filesystem']['disabled'] == false }
   end
 end
+
+
+
+unless node['platformstack']['cloud_monitoring']['plugins'].empty?
+  directory '/usr/lib/rackspace-monitoring-agent/plugins' do
+    recursive true
+    owner 'root'
+    group 'root'
+    mode '00755'
+  end
+
+  # Loop through each custom plugin in hash
+  node['platformstack']['cloud_monitoring']['plugins'].each do |plugin_name, value|
+    #helper variable
+    plugin_hash = value
+    
+    template "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
+      cookbook plugin_hash['cookbook']
+      source plugin_hash['template']
+      owner 'root'
+      group 'root'
+      mode '00755'
+      variables(
+        cookbook_name: cookbook_name
+      )
+    end
+  
+    template "/etc/rackspace-monitoring-agent.conf.d/monitoring-plugin-#{plugin_name}.yaml" do
+      cookbook plugin_hash['cookbook']
+      source 'monitoring-plugin.erb'
+      owner 'root'
+      group 'root'
+      mode '00644'
+      variables(
+        cookbook_name: cookbook_name,
+        plugin_check_label: plugin_hash['label'],
+        plugin_check_disabled: plugin_hash['disabled'],
+        plugin_check_period: plugin_hash['period'],
+        plugin_check_timeout: plugin_hash['timeout'], 
+        plugin_details_file: plugin_hash['details']['file'],
+        plugin_details_args: plugin_hash['details']['args'],
+        plugin_details_timeout: plugin_hash['details']['timeout'],
+        plugin_alarm_label: plugin_hash['alarm']['label'],
+        plugin_alarm_notification_plan_id: plugin_hash['alarm']['notification_plan_id'],
+        plugin_alarm_criteria: plugin_hash['alarm']['criteria']
+      )
+      notifies 'restart', 'service[rackspace-monitoring-agent]', :delayed
+      only_if { plugin_hash['disabled'] == false }
+    end
+  end
+
+end
+
 
 service 'rackspace-monitoring-agent' do
   supports start: true, status: true, stop: true, restart: true
