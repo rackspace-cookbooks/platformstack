@@ -153,17 +153,6 @@ unless node['platformstack']['cloud_monitoring']['plugins'].empty?
       group 'root'
       mode "0755"
     end
-
-    #template "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
-    #  cookbook plugin_hash['cookbook']
-    #  source plugin_hash['template']
-    #  owner 'root'
-    #  group 'root'
-    #  mode '00755'
-    #  variables(
-    #    cookbook_name: cookbook_name
-    #  )
-    #end
   
     template "/etc/rackspace-monitoring-agent.conf.d/monitoring-plugin-#{plugin_name}.yaml" do
       cookbook plugin_hash['cookbook']
