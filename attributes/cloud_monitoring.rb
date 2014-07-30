@@ -89,6 +89,23 @@ default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 default['platformstack']['cloud_monitoring']['service']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platformstack'
 
+
+default['platformstack']['cloud_monitoring']['plugins'] = {}
+# Generic plugin support. Requires hash like:
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['label'] = ''
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['disabled'] = false
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['period'] = 60
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['timeout'] = 30
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['file_url'] = ''
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['cookbook'] = 'platformstack'
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['file'] = ''
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['args'] =[]
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['timeout'] = 60
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['label'] = ''
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['notification_plan_id'] = ''
+# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['criteria'] = ''
+
+
 if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   default['platformstack']['cloud_monitoring']['enabled'] = false
 else
