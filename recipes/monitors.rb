@@ -44,7 +44,7 @@ if node['platformstack']['cloud_monitoring']['enabled'] == true
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-      action :run
+      action 'run'
       # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
     end
@@ -147,16 +147,23 @@ unless node['platformstack']['cloud_monitoring']['plugins'].empty?
     #helper variable
     plugin_hash = value
     
-    template "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
-      cookbook plugin_hash['cookbook']
-      source plugin_hash['template']
+    remote_file "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
+      source plugin_hash['file_url']
       owner 'root'
       group 'root'
-      mode '00755'
-      variables(
-        cookbook_name: cookbook_name
-      )
+      mode "0755"
     end
+
+    #template "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
+    #  cookbook plugin_hash['cookbook']
+    #  source plugin_hash['template']
+    #  owner 'root'
+    #  group 'root'
+    #  mode '00755'
+    #  variables(
+    #    cookbook_name: cookbook_name
+    #  )
+    #end
   
     template "/etc/rackspace-monitoring-agent.conf.d/monitoring-plugin-#{plugin_name}.yaml" do
       cookbook plugin_hash['cookbook']
