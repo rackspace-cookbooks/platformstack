@@ -132,8 +132,6 @@ node['platformstack']['cloud_monitoring']['filesystem']['target'].each do |_disk
   end
 end
 
-
-
 unless node['platformstack']['cloud_monitoring']['plugins'].empty?
   directory '/usr/lib/rackspace-monitoring-agent/plugins' do
     recursive true
@@ -144,16 +142,16 @@ unless node['platformstack']['cloud_monitoring']['plugins'].empty?
 
   # Loop through each custom plugin in hash
   node['platformstack']['cloud_monitoring']['plugins'].each do |plugin_name, value|
-    #helper variable
+    # helper variable
     plugin_hash = value
-    
+
     remote_file "/usr/lib/rackspace-monitoring-agent/plugins/#{plugin_hash['details']['file']}" do
       source plugin_hash['file_url']
       owner 'root'
       group 'root'
-      mode "0755"
+      mode '0755'
     end
-  
+
     template "/etc/rackspace-monitoring-agent.conf.d/monitoring-plugin-#{plugin_name}.yaml" do
       cookbook plugin_hash['cookbook']
       source 'monitoring-plugin.erb'
@@ -165,7 +163,7 @@ unless node['platformstack']['cloud_monitoring']['plugins'].empty?
         plugin_check_label: plugin_hash['label'],
         plugin_check_disabled: plugin_hash['disabled'],
         plugin_check_period: plugin_hash['period'],
-        plugin_check_timeout: plugin_hash['timeout'], 
+        plugin_check_timeout: plugin_hash['timeout'],
         plugin_details_file: plugin_hash['details']['file'],
         plugin_details_args: plugin_hash['details']['args'],
         plugin_details_timeout: plugin_hash['details']['timeout'],
@@ -179,7 +177,6 @@ unless node['platformstack']['cloud_monitoring']['plugins'].empty?
   end
 
 end
-
 
 service 'rackspace-monitoring-agent' do
   supports start: true, status: true, stop: true, restart: true
