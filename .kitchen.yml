@@ -9,6 +9,8 @@ provisioner:
   client_rb:
     environment: _default
   attributes:
+    ntp:
+      apparmor_enabled: false
     authorization:
       sudo:
         users: ['vagrant']
