@@ -6,6 +6,7 @@ AllCops:
     - Thorfile
     - Guardfile
     - Vagrantfile
+    - Gemfile
 
 # Disable requirement of "encoding" headers on files
 Encoding:
