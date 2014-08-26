@@ -19,22 +19,24 @@
 # limitations under the License.
 #
 
-case node['platform_family']
-when 'debian'
-  execute 'fix_locale' do
-    command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
-    user 'root'
-    action 'run'
-  end
-when 'redhat'
-  template '/etc/sysconfig/i18n' do
-    source 'centos-locale.erb'
-    owner 'root'
-    group 'root'
-    mode '00644'
-    variables(
-      cookbook_name: cookbook_name
-    )
-    action 'create'
+unless node['virtualization']['systems']['lxc'] == 'guest'
+  case node['platform_family']
+  when 'debian'
+    execute 'fix_locale' do
+      command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
+      user 'root'
+      action 'run'
+    end
+  when 'redhat'
+    template '/etc/sysconfig/i18n' do
+      source 'centos-locale.erb'
+      owner 'root'
+      group 'root'
+      mode '00644'
+      variables(
+        cookbook_name: cookbook_name
+      )
+      action 'create'
+    end
   end
 end

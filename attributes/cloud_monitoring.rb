@@ -51,7 +51,6 @@ node['filesystem'].each do |key, data|
   next if data['percent_used'].nil? || data['fs_type'].nil?
   next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].nil?
   next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].include?(data['fs_type'])
-
   default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
 end
 
