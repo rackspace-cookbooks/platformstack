@@ -1,5 +1,12 @@
 # Rubocop,  we're buddies and all,  but we're going to have to disagree on the following -
 
+# Exclude things that don't matter
+AllCops:
+  Exclude:
+    - Thorfile
+    - Guardfile
+    - Vagrantfile
+
 # Disable requirement of "encoding" headers on files
 Encoding:
   Enabled: false
