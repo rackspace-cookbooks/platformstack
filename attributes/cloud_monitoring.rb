@@ -51,7 +51,7 @@ node['filesystem'].each do |key, data|
   next if data['percent_used'].nil? || data['fs_type'].nil?
   next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].nil?
   next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].include?(data['fs_type'])
-  
+
   default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
 end
 
@@ -101,11 +101,11 @@ default['platformstack']['cloud_monitoring']['plugins']['chef-client']['timeout'
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['file_url'] = 'https://raw.githubusercontent.com/racker/rackspace-monitoring-agent-plugins-contrib/master/chef_node_checkin.py'
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['file'] = 'chef_node_checkin.py'
-default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['args'] =[]
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['args'] = []
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['timeout'] = 60
-#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['label'] = 'chef-client_timeSinceCheckIn'
-#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = ''
-#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = "if (metric['timeSinceCheckIn'] > 3600) { return new AlarmStatus(CRITICAL, 'Node Check-In failed'); }"
+# default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['label'] = 'chef-client_timeSinceCheckIn'
+# default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = ''
+# default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = ''
 
 if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   default['platformstack']['cloud_monitoring']['enabled'] = false
