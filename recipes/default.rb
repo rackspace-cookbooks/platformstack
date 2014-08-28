@@ -43,7 +43,6 @@ ruby_block 'platformstack' do # ~FC014
       run_context.include_recipe('chef-client')
     end
     run_context.include_recipe('postfix') if node['platformstack']['postfix']['enabled'] == true
-    run_context.include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
     run_context.include_recipe('rackspace_cloudbackup') if node['platformstack']['cloud_backup']['enabled'] == true
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
     run_context.include_recipe('logstash_stack::rsyslog_client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
@@ -56,3 +55,5 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('openssh')
   end
 end
+
+include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
