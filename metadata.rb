@@ -4,7 +4,7 @@ maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides a full Tomcat stack'
 
-version '1.0.4'
+version '1.1.0'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os
