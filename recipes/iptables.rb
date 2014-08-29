@@ -18,7 +18,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['virtualization']['systems']['lxc'] == 'guest'
+include_recipe 'chef-sugar'
+
+unless node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest'
   if node['platformstack']['rackconnect'] == true
     sudo 'rackconnect' do
       user 'rackconnect'
