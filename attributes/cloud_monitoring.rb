@@ -102,9 +102,9 @@ default['platformstack']['cloud_monitoring']['plugins']['chef-client']['cookbook
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['file'] = 'chef_node_checkin.py'
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['args'] =[]
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['timeout'] = 60
-default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['label'] = 'WARNING'
-default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = 'npMANAGED'
-default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = ''
+#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['label'] = 'WARNING'
+#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = 'npMANAGED'
+#default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = ''
 
 if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   default['platformstack']['cloud_monitoring']['enabled'] = false
