@@ -9,6 +9,8 @@ provisioner:
   client_rb:
     environment: _default
   attributes:
+    ntp:
+      apparmor_enabled: false
     authorization:
       sudo:
         users: ['vagrant']
@@ -23,7 +25,6 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
-  - name: centos-6.4
   - name: centos-6.5
 
 suites:

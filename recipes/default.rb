@@ -26,6 +26,11 @@ node.default['tz'] = 'Etc/UTC'
 
 include_recipe 'apt::default' if platform_family?('debian')
 
+if node['platformstack']['logstash_rsyslog']['enabled'] == true
+  node.default['rsyslog']['server_search'] = 'recipes[elkstack::logstash] AND chef_environment:#{node.chef_environment}'
+  node.default['rsyslog']['port'] = '5959' if node['platformstack']['logstash_rsyslog']['enabled'] == true
+end
+
 log 'run the default stuff last' do
   level :debug
   notifies :create, 'ruby_block[platformstack]', :delayed
@@ -43,10 +48,9 @@ ruby_block 'platformstack' do # ~FC014
       run_context.include_recipe('chef-client')
     end
     run_context.include_recipe('postfix') if node['platformstack']['postfix']['enabled'] == true
-    run_context.include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
     run_context.include_recipe('rackspace_cloudbackup') if node['platformstack']['cloud_backup']['enabled'] == true
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
-    run_context.include_recipe('logstash_stack::rsyslog_client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
+    run_context.include_recipe('rsyslog::client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
@@ -56,3 +60,5 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('openssh')
   end
 end
+
+include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
