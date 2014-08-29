@@ -94,18 +94,18 @@ default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platf
 
 default['platformstack']['cloud_monitoring']['plugins'] = {}
 # Generic plugin support. Requires hash like:
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['label'] = ''
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['disabled'] = false
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['period'] = 60
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['timeout'] = 30
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['file_url'] = ''
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['cookbook'] = 'platformstack'
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['file'] = ''
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['args'] =[]
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['details']['timeout'] = 60
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['label'] = ''
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['notification_plan_id'] = ''
-# node['platformstack']['cloud_monitoring']['plugins']['plugin_name_here']['alarm']['criteria'] = ''
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['label'] = 'chef-client'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['disabled'] = false
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['period'] = 60
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['timeout'] = 30
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['file_url'] = 'https://raw.githubusercontent.com/racker/rackspace-monitoring-agent-plugins-contrib/master/chef_node_checkin.py'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['cookbook'] = 'platformstack'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['file'] = 'chef_node_checkin.py'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['args'] =[]
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['details']['timeout'] = 60
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['label'] = 'WARNING'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = 'npMANAGED'
+default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = ''
 
 if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
   default['platformstack']['cloud_monitoring']['enabled'] = false
