@@ -18,25 +18,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe 'chef-sugar'
 
-unless node['virtualization']['systems']['lxc'] == 'guest'
-  case node['platform_family']
-  when 'debian'
-    execute 'fix_locale' do
-      command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
-      user 'root'
-      action 'run'
-    end
-  when 'redhat'
-    template '/etc/sysconfig/i18n' do
-      source 'centos-locale.erb'
-      owner 'root'
-      group 'root'
-      mode '00644'
-      variables(
-        cookbook_name: cookbook_name
-      )
-      action 'create'
-    end
+case node['platform_family']
+when 'debian'
+  execute 'fix_locale' do
+    command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
+    user 'root'
+    action 'run'
+    not_if node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest'
+  end
+when 'redhat'
+  template '/etc/sysconfig/i18n' do
+    source 'centos-locale.erb'
+    owner 'root'
+    group 'root'
+    mode '00644'
+    variables(
+      cookbook_name: cookbook_name
+    )
+    action 'create'
+    not_if node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest'
   end
 end
