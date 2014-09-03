@@ -47,11 +47,14 @@ default['platformstack']['cloud_monitoring']['filesystem']['warn'] = 80
 default['platformstack']['cloud_monitoring']['filesystem']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'] = %(tmpfs devtmpfs devpts proc mqueue cgroup efivars sysfs sys securityfs configfs fusectl)
 
-node['filesystem'].each do |key, data|
-  next if data['percent_used'].nil? || data['fs_type'].nil?
-  next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].nil?
-  next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].include?(data['fs_type'])
-  default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
+# during chefspec tests with fauxhai, node['filesystem'] might be nil
+unless node['filesystem'].nil?
+  node['filesystem'].each do |key, data|
+    next if data['percent_used'].nil? || data['fs_type'].nil?
+    next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].nil?
+    next if node['platformstack']['cloud_monitoring']['filesystem']['non_monitored_fstypes'].include?(data['fs_type'])
+    default['platformstack']['cloud_monitoring']['filesystem']['target'][key] = data['mount']
+  end
 end
 
 default['platformstack']['cloud_monitoring']['load']['disabled'] = false
