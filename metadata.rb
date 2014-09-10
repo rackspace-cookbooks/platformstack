@@ -1,10 +1,10 @@
 name 'platformstack'
-maintainer 'Rackspace US, Inc.'
+maintainer 'Rackspace'
 maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides a full Tomcat stack'
 
-version '1.1.2'
+version '1.1.3'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os

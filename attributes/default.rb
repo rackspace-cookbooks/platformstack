@@ -20,3 +20,8 @@
 
 default['rackspace']['cloud_credentials']['username'] = nil
 default['rackspace']['cloud_credentials']['api_key'] = nil
+
+case node['platform_family']
+when 'debian'
+  default['chef_client']['init_style'] = 'upstart'
+end
