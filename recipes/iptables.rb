@@ -20,7 +20,7 @@
 #
 include_recipe 'chef-sugar'
 
-unless node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest'
+unless node['virtualization'] && node['virtualization']['system'] == 'lxc'
   if node['platformstack']['rackconnect'] == true
     sudo 'rackconnect' do
       user 'rackconnect'
