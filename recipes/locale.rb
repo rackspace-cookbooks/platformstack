@@ -26,7 +26,7 @@ when 'debian'
     command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
     user 'root'
     action 'run'
-    not_if { node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest' }
+    not_if { node['virtualization'] && node['virtualization']['system'] == 'lxc' }
   end
 when 'redhat'
   template '/etc/sysconfig/i18n' do
@@ -38,6 +38,6 @@ when 'redhat'
       cookbook_name: cookbook_name
     )
     action 'create'
-    not_if { node.deep_fetch('virtualization', 'systems', 'lxc') == 'guest' }
+    not_if { node['virtualization'] && node['virtualization']['system'] == 'lxc' }
   end
 end
