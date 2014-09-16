@@ -1,0 +1,15 @@
+# CHEF MANAGED FILE: DO NOT EDIT
+# Controlling Cookbook: <%= @cookbook_name %>
+#
+
+{
+    "service": {
+        "name": "<%= @consul_service_name =%>", #String
+        "tags": <%= @consul_service_tags =%>, #Array
+        "port": <%= @consul_service_port =%>, #Int
+        "check": {
+            "script": "<%= @consul_check_script @consul_service_port =%>", #String
+            "interval": "<%= @consul_service_interval =%>s" #Int
+        }
+    }
+}
