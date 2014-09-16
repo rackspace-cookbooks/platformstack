@@ -16,7 +16,7 @@ parser.add_argument('port', type=int, help='port to check')
 args = parser.parse_args()
 
 def check_listening_port(port):
-    """Return True if the given TCP port is busy and in LISTEN mode."""
+    """Return proper error code if the given TCP port is busy and in LISTEN mode."""
     for conn in psutil.net_connections(kind='tcp'):
         if conn.laddr[1] == port and conn.status == psutil.CONN_LISTEN:
             return 0
