@@ -5,7 +5,9 @@
 {
     "service": {
         "name": "<%= @consul_service_name =%>", #String
+if id set:
         "id":   "<%= @consul_service_id =%>", #String
+endif
         "tags": <%= @consul_service_tags =%>, #Array
         "port": <%= @consul_service_port =%>, #Int
         "check": {
@@ -14,6 +16,7 @@ if ttl not set:
             "interval": "<%= @consul_service_interval =%>s" #Int
 else:
             "ttl": "<%= @consul_service_ttl =%>s" #Int
+endif
         }
     }
 }
