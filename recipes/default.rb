@@ -53,6 +53,7 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('rsyslog::client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
+    run_context.include_recipe('consul') if node['platformstack']['consul']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
