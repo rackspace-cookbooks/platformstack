@@ -1,10 +1,10 @@
 name 'platformstack'
-maintainer 'Rackspace US, Inc.'
+maintainer 'Rackspace'
 maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
-description 'Provides a full Tomcat stack'
+description 'Provides Rackspace managed support beyond rackops_rolebook'
 
-version '1.1.2'
+version '1.2.0'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os
@@ -30,3 +30,6 @@ depends 'sudo'
 depends 'timezone-ii'
 depends 'user'
 depends 'yum'
+depends 'elkstack'
+depends 'elasticsearch'
+depends 'java'
