@@ -54,6 +54,7 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('platformstack::monitors')
+    run_context.include_recipe('platformstack::logging')
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables')
     # down here because iptables sets an attribute for openssh if it's rackconnected
