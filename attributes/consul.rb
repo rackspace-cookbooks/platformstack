@@ -20,4 +20,3 @@ default['platformstack']['consul']['enabled'] = 'false'
 
 # Set version explicitly, since protocol versions on upgrades may not be compatible
 default['platformstack']['consul']['version'] = '0.4.0'
-
