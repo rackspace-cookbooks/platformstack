@@ -1,0 +1,23 @@
+# CHEF MANAGED FILE: DO NOT EDIT
+# Controlling Cookbook: <%= @cookbook_name %>
+#
+
+{
+    "service": {
+        "name": "<%= node['platformstack']['consul']['service']['name'] =%>", #String
+<% if node['platformstack']['consul']['service']['id'] %>
+        "id":   "<%= node['platformstack']['consul']['service']['id'] =%>", #String
+<% end %>
+        "tags": <%= node['platformstack']['consul']['service']['tags'] =%>, #Array
+        "port": <%= node['platformstack']['consul']['service']['port'] =%>, #Int
+        "check": {
+if ttl not set:
+<% if node['platformstack']['consul']['service']['check']['ttl'] %>
+            "ttl": "<%= node['platformstack']['consul']['service']['check']['ttl'] =%>s" #Int
+<% else %>
+            "script": "<%= node['platformstack']['consul']['service']['check']['script'] =%> <%= node['platformstack']['consul']['service']['port'] =%>", #String
+            "interval": "<%= node['platformstack']['consul']['service']['check']['interval'] =%>s" #Int
+<% end %>
+        }
+    }
+}
