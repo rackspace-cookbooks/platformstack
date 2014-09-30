@@ -16,6 +16,8 @@ provisioner:
         users: ['vagrant']
         passwordless: true
     platformstack:
+      iptables:
+        allow_ssh_from_world: true
       cloud_monitoring:
         enabled: false
       cloud_backup:
