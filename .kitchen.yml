@@ -9,6 +9,10 @@ provisioner:
   client_rb:
     environment: _default
   attributes:
+    openssh:
+      server:
+        password_authentication: 'yes'
+        permit_root_login: 'yes'
     ntp:
       apparmor_enabled: false
     authorization:
