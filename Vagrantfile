@@ -24,9 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server_debian_password: 'debpass',
         server_repl_password: 'replpass'
       },
-      "holland" => { "enabled" => "false" },
-      "platformstack" => {
-         "cloud_monitoring" => { "enabled" => "false" }
+      "holland" => { "enabled" => false },
+      platformstack: {
+         "cloud_monitoring" => { "enabled" => true },
+         "consul" => { "enabled" => true }
       }
     }
 

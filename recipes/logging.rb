@@ -17,9 +17,9 @@ if Chef::Config[:solo]
   Chef::Log.warn('Cannot invoke search for ELK cluster while running under chef-solo')
 else
   include_recipe 'elasticsearch::search_discovery'
+  elk_nodes = node['elasticsearch']['discovery']['zen']['ping']['unicast']['hosts']
+  found_elkstack = !elk_nodes.nil? && !elk_nodes.split(',').empty? # don't do anything unless we find nodes
 end
-elk_nodes = node['elasticsearch']['discovery']['zen']['ping']['unicast']['hosts']
-found_elkstack = !elk_nodes.nil? && !elk_nodes.split(',').empty? # don't do anything unless we find nodes
 
 if found_elkstack
   # configure runlist
