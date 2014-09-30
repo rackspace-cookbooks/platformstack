@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+default['platformstack']['consul']['enabled'] = 'false'
+
 # Set version explicitly, since protocol versions on upgrades may not be compatible
-default['consul']['version'] = "0.3.1"
+default['platformstack']['consul']['version'] = '0.4.0'
 
