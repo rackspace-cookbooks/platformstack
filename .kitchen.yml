@@ -9,6 +9,10 @@ provisioner:
   client_rb:
     environment: _default
   attributes:
+    openssh:
+      server:
+        password_authentication: 'yes'
+        permit_root_login: 'yes'
     ntp:
       apparmor_enabled: false
     authorization:
@@ -16,6 +20,8 @@ provisioner:
         users: ['vagrant']
         passwordless: true
     platformstack:
+      iptables:
+        allow_ssh_from_world: true
       cloud_monitoring:
         enabled: false
       cloud_backup:
@@ -25,6 +31,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
   - name: centos-6.5
 
 suites:
