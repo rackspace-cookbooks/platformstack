@@ -20,6 +20,8 @@
 #
 include_recipe 'chef-sugar'
 
+require 'pp'
+pp node['platform_family']
 case node['platform_family']
 when 'debian'
   execute 'fix_locale' do
@@ -28,7 +30,7 @@ when 'debian'
     action 'run'
     not_if { node['virtualization'] && node['virtualization']['system'] == 'lxc' }
   end
-when 'redhat'
+when 'rhel'
   template '/etc/sysconfig/i18n' do
     source 'centos-locale.erb'
     owner 'root'

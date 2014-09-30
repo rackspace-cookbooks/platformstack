@@ -12,7 +12,8 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
   log_level: ::LOG_LEVEL
 }
 
-def node_resources
+def node_resources(node)
+  node.set['newrelic']['license'] = 'dummy_value'
 end
 
 def stub_resources
