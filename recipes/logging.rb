@@ -5,6 +5,8 @@
 # Copyright 2014. Rackspace, US Inc.
 #
 
+include_recipe 'chef-sugar'
+
 # This recipe *must* guard everything with node['platformstack']['elkstack_logging']['enabled']
 enable_attr = node.deep_fetch('platformstack', 'elkstack_logging', 'enabled')
 logging_enabled = !enable_attr.nil? && enable_attr # ensure this is binary logic, not nil

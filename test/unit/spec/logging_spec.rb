@@ -19,8 +19,9 @@ describe 'platformstack::logging' do
 
         _property = load_platform_properties(platform: platform, platform_version: version)
 
-        it 'writes some chefspec code' do
-          expect(!!chef_run).to be(true)
+        # not sure we can test much else here
+        it 'includes chef-sugar' do
+          expect(chef_run).to include_recipe('chef-sugar::default')
         end
       end
     end
