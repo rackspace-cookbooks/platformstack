@@ -21,11 +21,11 @@ end
 elk_nodes = node['elasticsearch']['discovery']['zen']['ping']['unicast']['hosts']
 found_elkstack = !elk_nodes.nil? && !elk_nodes.split(',').empty? # don't do anything unless we find nodes
 
-if found_elkstack
-  # configure runlist
-  java_attr = node.deep_fetch('platformstack', 'elkstack_logging', 'java')
-  include_recipe 'java' if java_attr.nil? || java_attr # java if unset or true
+return unless found_elkstack
 
-  # logstash already acts as an agent and server/non-agent on cluster boxes, so don't install it twice on those
-  include_recipe 'elkstack::agent' unless node.recipe?('elkstack::logstash')
-end
+# configure runlist
+java_attr = node.deep_fetch('platformstack', 'elkstack_logging', 'java')
+include_recipe 'java' if java_attr.nil? || java_attr # java if unset or true
+
+# logstash already acts as an agent and server/non-agent on cluster boxes, so don't install it twice on those
+include_recipe 'elkstack::agent' unless node.recipe?('elkstack::logstash')
