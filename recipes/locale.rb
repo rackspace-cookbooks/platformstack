@@ -20,8 +20,6 @@
 #
 include_recipe 'chef-sugar'
 
-require 'pp'
-pp node['platform_family']
 case node['platform_family']
 when 'debian'
   execute 'fix_locale' do

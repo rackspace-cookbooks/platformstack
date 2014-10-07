@@ -2,8 +2,9 @@
 
 require_relative 'spec_helper'
 
-describe command('locale | grep LANG=en_US.UTF-8') do
-  it { should return_exit_status 0 }
+describe command('locale') do
+  its(:exit_status) { should eq 0 }
+  # its(:stdout) { should match(/en_US/) }
 end
 
 describe service('chef-client') do
