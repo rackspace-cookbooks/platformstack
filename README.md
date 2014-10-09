@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/rackspace-cookbooks/platformstack.png?label=ready&title=Ready)](https://waffle.io/rackspace-cookbooks/platformstack)
+i[![Stories in Ready](https://badge.waffle.io/rackspace-cookbooks/platformstack.png?label=ready&title=Ready)](https://waffle.io/rackspace-cookbooks/platformstack)
 [![Build Status](https://jenkins-chef.rax.io/job/PlatformStack/badge/icon)](https://jenkins-chef.rax.io/job/PlatformStack/)
 # PlatformStack
 
