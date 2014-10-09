@@ -19,7 +19,7 @@ describe 'platformstack::monitors' do
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('chefspec-monitor')
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['source'] = 'chefspec_monitor.yaml.erb'
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['cookbook'] = 'chefspec_book'
-            node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['variables'] = { :warning => 'foo' }
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['variables'] = { warning: 'foo' }
           end.converge(described_recipe)
         end
 
@@ -33,7 +33,6 @@ describe 'platformstack::monitors' do
         it 'creates templates for custom monitors' do
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-chefspec-monitor.yaml')
         end
-
 
         it 'creates templates for specific monitors' do
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-cpu.yaml')
