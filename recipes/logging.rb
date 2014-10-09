@@ -18,7 +18,7 @@ if Chef::Config[:solo]
 else
   include_recipe 'elasticsearch::search_discovery'
 end
-elk_nodes = node['elasticsearch']['discovery']['zen']['ping']['unicast']['hosts']
+elk_nodes = node.deep_fetch('elasticsearch', 'discovery', 'zen', 'ping', 'unicast', 'hosts')
 found_elkstack = !elk_nodes.nil? && !elk_nodes.split(',').empty? # don't do anything unless we find nodes
 
 return unless found_elkstack

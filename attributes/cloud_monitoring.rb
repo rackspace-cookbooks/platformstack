@@ -84,6 +84,7 @@ default['platformstack']['cloud_monitoring']['network']['send']['crit'] = '76000
 default['platformstack']['cloud_monitoring']['network']['send']['warn'] = '56000'
 default['platformstack']['cloud_monitoring']['network']['cookbook'] = 'platformstack'
 
+# NOTE: this is for 'service monitoring' using service_mon.sh. go to the next section for arbitrary monitors.
 # Currently for service monitoring, the recipe that sets up the service should add:
 # node.default['platformstack']['cloud_monitoring']['service']['name'].push('<service_name>')
 default['platformstack']['cloud_monitoring']['service']['name']         = []
@@ -93,6 +94,15 @@ default['platformstack']['cloud_monitoring']['service']['period']       = 60
 default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 default['platformstack']['cloud_monitoring']['service']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platformstack'
+
+# arbitrary / non-service-monitors data structure for any arbitrary template
+default['platformstack']['cloud_monitoring']['custom_monitors']['name']         = []
+# Currently for arbitrary monitoring, the recipe that sets up the monitor should add:
+# node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('<service_name>')
+# and then populate node['platformstack']['cloud_monitoring'][service_name][setting] with your values
+# default['platformstack']['cloud_monitoring']['custom_monitors'][<name>]['source'] = 'my_monitor.yaml.erb'
+# default['platformstack']['cloud_monitoring']['custom_monitors'][<name>]['cookbook'] = 'your_cookbook'
+# default['platformstack']['cloud_monitoring']['custom_monitors'][<name>]['variables'] = { :warning => 'foo' }
 
 default['platformstack']['cloud_monitoring']['plugins'] = {}
 # Generic plugin support. Requires hash like:

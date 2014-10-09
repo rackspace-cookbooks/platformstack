@@ -81,6 +81,24 @@ yaml_monitors.each do |monitor|
   end
 end
 
+# any custom monitors
+node['platformstack']['cloud_monitoring']['custom_monitors']['name'].each do |monitor|
+
+  monitor_source = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['source']
+  monitor_cookbook = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['cookbook']
+  monitor_variables = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['variables']
+
+  template "/etc/rackspace-monitoring-agent.conf.d/monitoring-#{monitor}.yaml" do
+    cookbook monitor_cookbook
+    source monitor_source
+    owner 'root'
+    group 'root'
+    mode '00644'
+    variables(monitor_variables)
+    notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
+  end
+end
+
 unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
   directory '/usr/lib/rackspace-monitoring-agent/plugins' do
     recursive true

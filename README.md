@@ -37,7 +37,7 @@ Sets up monitoring for the following by default:
 - service
  - only enabled if set up via the `node['platformstack']['cloud_monitoring']['service']['name']` attribute
 
-You can set the period and timeout along with the critical and warning thresholds via attributes, check the cloud_monitoring attributes file for more info.
+You can set the period and timeout along with the critical and warning thresholds via attributes, as well as configure custom monitors. Check the cloud_monitoring attributes file for more info.
 
 #### default
 Sets the timezone to UTC by default.
