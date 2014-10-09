@@ -13,6 +13,13 @@ describe 'platformstack::monitors' do
           ChefSpec::Runner.new(platform: platform, version: version) do |node|
             node_resources(node)
             node.set['platformstack']['cloud_monitoring']['enabled'] = true
+
+            # add a custom monitor, then test for it below
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('chefspec-monitor')
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['source'] = 'chefspec_monitor.yaml.erb'
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['cookbook'] = 'chefspec_book'
+            node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['variables'] = { :warning => 'foo' }
           end.converge(described_recipe)
         end
 
@@ -22,6 +29,11 @@ describe 'platformstack::monitors' do
           expect(chef_run).to create_directory('/etc/rackspace-monitoring-agent.conf.d')
           expect(chef_run).to create_directory('/usr/lib/rackspace-monitoring-agent/plugins')
         end
+
+        it 'creates templates for custom monitors' do
+          expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-chefspec-monitor.yaml')
+        end
+
 
         it 'creates templates for specific monitors' do
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-cpu.yaml')
