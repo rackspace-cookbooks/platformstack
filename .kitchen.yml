@@ -28,11 +28,19 @@ provisioner:
         enabled: false
       omnibus_updater:
         enabled: false
+      elkstack_logging:
+        enabled: false
 
 platforms:
   - name: ubuntu-12.04
+    run_list:
+    - recipe[apt]
   - name: ubuntu-14.04
+    run_list:
+    - recipe[apt]
   - name: centos-6.5
+    run_list:
+    - recipe[yum]
 
 suites:
   - name: default
