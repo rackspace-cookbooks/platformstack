@@ -4,7 +4,7 @@ maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides Rackspace managed support beyond rackops_rolebook'
 
-version '1.4.2'
+version '1.4.3'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os
@@ -32,5 +32,6 @@ depends 'timezone-ii'
 depends 'user'
 depends 'yum'
 depends 'elkstack'
+depends 'logstash_commons'
 depends 'elasticsearch'
 depends 'java'
