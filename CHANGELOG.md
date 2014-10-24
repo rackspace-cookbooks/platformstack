@@ -1,3 +1,7 @@
+# 1.4.4
+
+- Remove now-unused logstash_commons references
+
 # 1.4.3
 
 - Add missing dependency (wasn't an error since elkstack depends on it, but still)
