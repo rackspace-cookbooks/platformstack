@@ -15,7 +15,7 @@ details:
 alarms:
     alarm-service:
         label: <%= @service_name %> Service Running
-        notification_plan_id: npkUC0Xuuz
+        notification_plan_id: <%= node['platformstack']['cloud_monitoring']['notification_plan_id'] %>
         criteria: |
             if (metric['status'] == 'CRITICAL') {
               return new AlarmStatus(CRITICAL, 'Service <%= @service_name %> is NOT running');
