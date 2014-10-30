@@ -1,3 +1,7 @@
+# 1.5.0
+
+- Setup remote-http monitors from attribute hash.
+
 # 1.4.4
 
 - Remove now-unused logstash_commons references
