@@ -95,6 +95,9 @@ default['platformstack']['cloud_monitoring']['service']['timeout']      = 30
 default['platformstack']['cloud_monitoring']['service']['cookbook'] = 'platformstack'
 default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platformstack'
 
+# Remote-http monitors.
+default['platformstack']['cloud_monitoring']['remote_http']['name']     = []
+
 # arbitrary / non-service-monitors data structure for any arbitrary template
 default['platformstack']['cloud_monitoring']['custom_monitors']['name']         = []
 # Currently for arbitrary monitoring, the recipe that sets up the monitor should add:
