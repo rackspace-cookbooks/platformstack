@@ -59,8 +59,9 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('platformstack::iptables')
     # down here because iptables sets an attribute for openssh if it's rackconnected
     run_context.include_recipe('openssh')
+    run_context.include_recipe('platformstack::logging')
   end
 end
 
 include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
-include_recipe('platformstack::logging')
+
