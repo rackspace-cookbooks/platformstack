@@ -20,7 +20,7 @@
 #
 include_recipe 'chef-sugar'
 
-unless node['virtualization'] && node['virtualization']['system'] == 'lxc'
+unless lxc?
   if node['platformstack']['rackconnect'] == true
     sudo 'rackconnect' do
       user 'rackconnect'

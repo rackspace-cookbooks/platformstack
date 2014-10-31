@@ -15,6 +15,18 @@ describe 'platformstack::monitors' do
             node.set['platformstack']['cloud_monitoring']['enabled'] = true
 
             # add a custom monitor, then test for it below
+            node.set['platformstack']['cloud_monitoring']['remote_http']['name'] = []
+            node.set['platformstack']['cloud_monitoring']['remote_http']['chefspec-monitor']['source'] = 'monitoring-remote-http.yaml.erb'
+            node.set['platformstack']['cloud_monitoring']['remote_http']['chefspec-monitor']['cookbook'] = 'chefspec_book'
+            node.set['platformstack']['cloud_monitoring']['remote_http']['chefspec-monitor']['variables'] = {
+              disabled: false,
+              perioud: 60,
+              timeout: 15,
+              alarm: false,
+              port: 80,
+              uri: '/',
+              name: 'chefspec_monitor'
+            }
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('chefspec-monitor')
             node.set['platformstack']['cloud_monitoring']['custom_monitors']['chefspec-monitor']['source'] = 'chefspec_monitor.yaml.erb'

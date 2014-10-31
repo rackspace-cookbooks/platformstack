@@ -99,6 +99,23 @@ node['platformstack']['cloud_monitoring']['custom_monitors']['name'].each do |mo
   end
 end
 
+node['platformstack']['cloud_monitoring']['remote_http']['name'].each do |monitor|
+
+  monitor_source = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['source']
+  monitor_cookbook = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['cookbook']
+  monitor_variables = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['variables']
+
+  template '/etc/rackspace-monitoring-agent.conf.d/monitoring-remote-http.yaml' do
+    cookbook monitor_cookbook
+    source monitor_source
+    owner 'root'
+    group 'root'
+    mode '00644'
+    variables(monitor_variables)
+    notifies 'restart', 'service[rackspace-monitoring-agent]', 'delayed'
+  end
+end
+
 unless node['platformstack']['cloud_monitoring']['service']['name'].empty?
   directory '/usr/lib/rackspace-monitoring-agent/plugins' do
     recursive true
