@@ -1,3 +1,7 @@
+# 1.5.3
+
+- Disable force upgrade of omnibus
+
 # 1.5.0
 
 - Setup remote-http monitors from attribute hash.
