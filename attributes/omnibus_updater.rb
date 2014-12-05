@@ -20,4 +20,4 @@
 
 default['platformstack']['omnibus_updater']['enabled'] = true
 default['omnibus_updater']['restart_chef_service'] = true
-default['omnibus_updater']['force_latest'] = true
+default['omnibus_updater']['force_latest'] = false
