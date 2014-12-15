@@ -13,7 +13,6 @@ describe 'platformstack::default' do
           ChefSpec::Runner.new(platform: platform, version: version) do |node|
             node_resources(node)
           end.converge(described_recipe)
-
         end
 
         # we can use anything here to test it later

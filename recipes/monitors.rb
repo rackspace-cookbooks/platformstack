@@ -83,7 +83,6 @@ end
 
 # any custom monitors
 node['platformstack']['cloud_monitoring']['custom_monitors']['name'].each do |monitor|
-
   monitor_source = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['source']
   monitor_cookbook = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['cookbook']
   monitor_variables = node['platformstack']['cloud_monitoring']['custom_monitors'][monitor]['variables']
@@ -100,7 +99,6 @@ node['platformstack']['cloud_monitoring']['custom_monitors']['name'].each do |mo
 end
 
 node['platformstack']['cloud_monitoring']['remote_http']['name'].each do |monitor|
-
   monitor_source = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['source']
   monitor_cookbook = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['cookbook']
   monitor_variables = node['platformstack']['cloud_monitoring']['remote_http'][monitor]['variables']
