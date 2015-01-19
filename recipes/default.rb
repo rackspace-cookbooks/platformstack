@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+include_recipe 'chef-sugar'
+
 node.default['authorization']['sudo']['include_sudoers_d'] = true
 node.default['chef-client']['log_file'] = '/var/log/chef/client.log'
 node.default['apt']['compile_time_update'] = true

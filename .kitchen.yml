@@ -47,3 +47,8 @@ suites:
     run_list:
       - recipe[platformstack::default]
     attributes:
+
+  - name: rackops_rolebook
+    run_list:
+      - recipe[platformstack::rackops_rolebook]
+    attributes:
