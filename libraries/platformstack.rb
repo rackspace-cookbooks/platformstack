@@ -11,6 +11,8 @@ module Platformstack
 
     if deprecated_value && !current_value
       Chef::Log.warn("You are using deprecated attribute keys under node['rackops_rolebook']: #{keys.join(',')}")
+    elsif deprecated_value && current_value
+      Chef::Log.warn("You are using deprecated attribute keys and have non-deprecated keys set at the same time (will use non-deprecated keys first): #{keys.join(',')}")
     end
 
     # return the preferred value first, followed by the deprecated one
