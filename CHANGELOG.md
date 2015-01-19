@@ -1,3 +1,7 @@
+# 2.0.0
+
+- Merge with rackops_rolebook, keeping this cookbook as the result. See RFC 006 and the resulting PR for more information.
+
 # 1.5.3
 
 - Disable force upgrade of omnibus

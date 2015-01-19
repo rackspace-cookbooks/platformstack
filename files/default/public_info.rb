@@ -16,20 +16,25 @@
 # limitations under the License.
 
 require 'json'
-require 'rest-client'
 
 Ohai.plugin(:Publicinfo) do
   provides 'public_info'
 
   collect_data(:linux) do
+    require 'rest-client'
     url = 'http://whoami.rackops.org/api'
-    response = RestClient.get(url)
+    # Handle errors and no response for whoami.rackops.org
+    begin
+      response = RestClient.get(url)
+    rescue
+      response = RestClient.get('http://dazzlepod.com/ip/me.json')
+    end
     results = JSON.parse(response)
     if results.nil?
-      Ohai::Log.debug('Failed to return info from whoami.rackops.org')
+      Ohai::Log.debug('Failed to return Public_info results')
     else
       public_info Mash.new
-      public_info[:remote_ip] = results['remote_ip']
+      public_info[:remote_ip] = results.key?('remote_ip') ? results['remote_ip'] : results['ip']
       public_info[:X_Forwarded] = results['X_Forwarded']
       public_info[:asn] = results['asn']
       public_info[:city] = results['city']

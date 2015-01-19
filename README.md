@@ -2,9 +2,7 @@
 [![Build Status](https://jenkins-chef.rax.io/job/PlatformStack/badge/icon)](https://jenkins-chef.rax.io/job/PlatformStack/)
 # PlatformStack
 
-This cookbook installs and sets up commonly used things that we consider useful or standard (such as setting the timezone to UTC).
-
-This cookbook is intended to install things that are NOT specific to DevOps support level at Rackspace. Contrast this with [rackops_rolebook][1] cookbook which performs configuration specifically for DevOps customers.
+This cookbook installs and sets up commonly used things that we consider useful or standard (such as setting the timezone to UTC). This cookbook installs things that are and are NOT specific to DevOps support level at Rackspace. Much of the distinction is made in things named 'rackops' (managed) vs. 'platform' (managed and unmanaged). This cookbook was merged with one originally named 'rackops_rolebook' as [part of RFC 006](https://github.com/AutomationSupport/devops-rfc/blob/master/rfc-006-combine_commons.md).
 
 ## general notes
 

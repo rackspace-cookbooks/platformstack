@@ -2,4 +2,4 @@
 # Controlling Cookbook: <%= @cookbook_name %>
 #
 
-export EDITOR=<%= node['platformstack']['rackops']['editor']['default'] %>
+export EDITOR=<%= Platformstack.get_rackops_platformstack(node, 'editor', 'default') %>

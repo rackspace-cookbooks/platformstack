@@ -1,0 +1,29 @@
+# This file is managed by Chef. Manual changes will be overridden
+
+*** Chef Details ***
+Chef-Client: <%= node.name %>
+Hostname: <%= node['cloud'] ? node['cloud']['public_hostname'] : node['fqdn'] %>
+<% if Chef::Config[:solo] -%>
+Chef Server: Solo
+<% else -%>
+Chef Server: <%= Chef::Config[:chef_server_url] %>
+<% end -%>
+Environment: <%= node.chef_environment %>
+Last Run: <%= ::Time.now %>
+
+Roles and Recipes:
+<% node['roles'].each do |role| -%>
+  Role: <%= role %>
+<% end -%>
+<% node['recipes'].each do |recipe| -%>
+  Recipe: <%= recipe %>
+<% end -%>
+
+<% if node['tags'] && !node['tags'].empty? -%>
+Tags:
+<% node['tags'].each do |tag| -%>
+  <%= tag %>
+<% end -%>
+<% end -%>
+
+********************

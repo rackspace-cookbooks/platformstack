@@ -12,7 +12,7 @@ describe 'platformstack::iptables' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(platform: platform, version: version) do |node|
+          ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
             node_resources(node)
             node.set['platformstack']['rackconnect'] = true
           end.converge(described_recipe)
