@@ -28,11 +28,6 @@ node.default['tz'] = 'Etc/UTC'
 
 include_recipe 'apt::default' if platform_family?('debian')
 
-if node['platformstack']['logstash_rsyslog']['enabled'] == true
-  node.default['rsyslog']['server_search'] = 'recipes[elkstack::logstash] AND chef_environment:#{node.chef_environment}'
-  node.default['rsyslog']['port'] = '5959' if node['platformstack']['logstash_rsyslog']['enabled'] == true
-end
-
 log 'run the default stuff last' do
   level :debug
   notifies :create, 'ruby_block[platformstack]', :delayed
@@ -65,4 +60,3 @@ ruby_block 'platformstack' do # ~FC014
 end
 
 include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
-include_recipe('platformstack::logging')

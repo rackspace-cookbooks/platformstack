@@ -4,7 +4,7 @@ maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides Rackspace base platform and managed support'
 
-version '2.0.0'
+version '2.0.1'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os
@@ -16,8 +16,6 @@ depends 'chef-client'
 depends 'chef-sugar'
 depends 'client-rekey'
 depends 'consul'
-depends 'elkstack'
-depends 'elasticsearch'
 depends 'git'
 depends 'java'
 depends 'motd-tail', '~> 2.0'

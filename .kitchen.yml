@@ -28,8 +28,6 @@ provisioner:
         enabled: false
       omnibus_updater:
         enabled: false
-      elkstack_logging:
-        enabled: false
 
 platforms:
   - name: ubuntu-12.04
