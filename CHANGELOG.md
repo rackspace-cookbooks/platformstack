@@ -1,3 +1,7 @@
+# 3.0.0
+
+- Due to the various problems it presents (circular dependencies, kibana Berksfile entries on every cookbook in a 3 mile radius, etc), we are no longer going to activate elkstack by default in platformstack. In order to include elkstack now, simply `include_recipe 'elkstack::agent'` on your node or add it to the runlist directly.
+
 # 2.0.0
 
 - Merge with rackops_rolebook, keeping this cookbook as the result. See RFC 006 and the resulting PR for more information.
