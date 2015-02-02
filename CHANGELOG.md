@@ -1,3 +1,6 @@
+# 3.0.1
+- Added enable/disable flag for iptables recipe.
+
 # 3.0.0
 
 - Due to the various problems it presents (circular dependencies, kibana Berksfile entries on every cookbook in a 3 mile radius, etc), we are no longer going to activate elkstack by default in platformstack. In order to include elkstack now, simply `include_recipe 'elkstack::agent'` on your node or add it to the runlist directly.
