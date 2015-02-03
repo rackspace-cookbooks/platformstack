@@ -4,7 +4,7 @@ maintainer_email 'rackspace-cookbooks@rackspace.com'
 license 'Apache 2.0'
 description 'Provides Rackspace base platform and managed support'
 
-version '3.0.1'
+version '3.0.2'
 
 %w(ubuntu debian redhat centos).each do |os|
   supports os
@@ -33,6 +33,7 @@ depends 'sudo', '~> 2.7'
 depends 'timezone-ii'
 depends 'user', '~> 0.3'
 depends 'yum'
+depends 'slack_handler'
 
 # conflicts with any version @ 2.0.0 of this cookbook
 conflicts 'rackops_rolebook'
