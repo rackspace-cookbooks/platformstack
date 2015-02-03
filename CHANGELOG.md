@@ -1,3 +1,6 @@
+# 3.0.2
+- Added enable/disable flag for slack_handler recipe.
+
 # 3.0.1
 - Added enable/disable flag for iptables recipe.
 
