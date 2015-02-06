@@ -13,13 +13,16 @@ critical_recipes = %w(
   rack_user
   ohai_plugins
   public_info
-  acl
   default
 )
 
 # Run critical recipes
-critical_recipes.each do | recipe |
+critical_recipes.each do |recipe|
   include_recipe "platformstack::#{recipe}"
+end
+
+if node['platformstack']['iptables']['enabled'] == true
+  include_recipe 'platformstack::acl'
 end
 
 admin_packages = %w(
@@ -45,7 +48,7 @@ when 'rhel'
   admin_packages.push('vim-minimal')
 end
 
-admin_packages.each do | admin_package |
+admin_packages.each do |admin_package|
   package admin_package do
     action :install
   end
@@ -60,6 +63,6 @@ template 'editor-env-var' do
   group 'root'
   mode '00755'
   variables(
-  cookbook_name: cookbook_name
+    cookbook_name: cookbook_name
   )
 end
