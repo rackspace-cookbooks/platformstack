@@ -1,5 +1,6 @@
 # 3.0.2
 - Added enable/disable flag for slack_handler recipe.
+- Added a toggle for iptables, to enable/disable based on feature flag attribute
 
 # 3.0.1
 - Added enable/disable flag for iptables recipe.
