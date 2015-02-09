@@ -26,6 +26,8 @@ end
 
 def stub_resources
   stub_command('which sudo').and_return('/usr/bin/sudo')
+  stub_command('test -L /usr/local/bin/consul').and_return(true)
+  stub_command('/usr/bin/test /etc/alternatives/mta -ef /usr/sbin/sendmail.postfix').and_return(true)
 end
 
 at_exit { ChefSpec::Coverage.report! }
