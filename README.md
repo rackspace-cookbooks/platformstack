@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/rackspace-cookbooks/platformstack.png?label=ready&title=Ready)](https://waffle.io/rackspace-cookbooks/platformstack)
-[![Build Status](https://jenkins-chef.rax.io/job/PlatformStack/badge/icon)](https://jenkins-chef.rax.io/job/PlatformStack/)
+[![Circle CI](https://circleci.com/gh/rackspace-cookbooks/platformstack/tree/master.svg?style=svg)](https://circleci.com/gh/rackspace-cookbooks/platformstack/tree/master)
 # PlatformStack
 
 This cookbook installs and sets up commonly used things that we consider useful or standard (such as setting the timezone to UTC). This cookbook installs things that are and are NOT specific to DevOps support level at Rackspace. Much of the distinction is made in things named 'rackops' (managed) vs. 'platform' (managed and unmanaged). This cookbook was merged with one originally named 'rackops_rolebook' as [part of RFC 006](https://github.com/AutomationSupport/devops-rfc/blob/master/rfc-006-combine_commons.md).
