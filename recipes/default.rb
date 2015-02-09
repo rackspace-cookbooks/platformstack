@@ -52,7 +52,7 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('slack_handler') if node['platformstack']['slack_handler']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('consul::install_binary') if node['platformstack']['consul']['enabled'] == true
-    run_context.include_recipe('platformstack::monitors')
+    run_context.include_recipe('platformstack::monitors') if node['platformstack']['cloud_monitoring']['enabled'] == true
     # run this last because if feels so good
     run_context.include_recipe('platformstack::iptables') if node['platformstack']['iptables']['enabled'] == true
     # down here because iptables sets an attribute for openssh if it's rackconnected
