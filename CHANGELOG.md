@@ -1,3 +1,6 @@
+# 3.0.3
+- Make sure nothing is done about cloud-monitoring if the the is set to false
+
 # 3.0.2
 - Added enable/disable flag for slack_handler recipe.
 - Added a toggle for iptables, to enable/disable based on feature flag attribute
