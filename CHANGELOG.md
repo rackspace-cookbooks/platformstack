@@ -1,3 +1,6 @@
+# 3.0.4
+- Bump for dev
+
 # 3.0.3
 - Make sure nothing is done about cloud-monitoring if the the is set to false
 
