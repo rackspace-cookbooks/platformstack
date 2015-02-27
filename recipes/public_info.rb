@@ -46,9 +46,10 @@ end.run_action('reload')
 # Stop the run if the IP is invalid, assume failure here is preferable to running with invalid data
 # This check is also important for testing: if the plugin fails to load and operate this exception will
 #  halt convergance breaking Kitchen runs.
-unless node.deep_fetch('public_info', 'remote_ip') =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
-  fail "ERROR: Unable to determine server remote IP. (Got \"#{node['public_info']['remote_ip']}\") Halting to avoid use of bad data."
+publicinfo_remoteip = node.deep_fetch('public_info', 'remote_ip')
+if publicinfo_remoteip =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
+  # Assign the external_ip tag to the node if node['public_info']['remote_ip'] looks like an IP.
+  tag("RemoteIP:#{publicinfo_remoteip}")
+else
+  fail "ERROR: Unable to determine server remote IP. (Got \"#{publicinfo_remoteip}\") Halting to avoid use of bad data."
 end
-
-# Assign the external_ip tag to the node if node['public_info']['remote_ip'] looks like an IP.
-tag("RemoteIP:#{node['public_info']['remote_ip']}")
