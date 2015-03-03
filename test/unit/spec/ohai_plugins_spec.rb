@@ -26,7 +26,7 @@ describe 'platformstack::ohai_plugins' do
         end
 
         it 'reloads ohai' do
-          expect(chef_run).to reload_ohai('reload')
+          expect(chef_run).to reload_ohai(:reload)
         end
       end
     end

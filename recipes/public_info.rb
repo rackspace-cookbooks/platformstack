@@ -11,7 +11,7 @@ include_recipe 'chef-sugar'
 # ensure rest-client gem is available
 chef_gem 'rest-client' do
   action :nothing
-end.run_action('install')
+end.run_action(:install)
 
 # Load the ohai recipe to populate node['ohai']
 include_recipe 'ohai'
@@ -28,20 +28,20 @@ directory node['ohai']['plugin_path'] do
   group 'root'
   mode  '0755'
   recursive true
-  action 'nothing'
-end.run_action('create')
+  action :nothing
+end.run_action(:create)
 
 cookbook_file "#{node['ohai']['plugin_path']}/public_info.rb" do
   owner 'root'
   group 'root'
   mode  '0644'
-  action 'nothing'
-end.run_action('create')
+  action :nothing
+end.run_action(:create)
 
 ohai 'reload_pubinfo' do
   plugin 'public_info'
-  action 'nothing'
-end.run_action('reload')
+  action :nothing
+end.run_action(:reload)
 
 # Stop the run if the IP is invalid, assume failure here is preferable to running with invalid data
 # This check is also important for testing: if the plugin fails to load and operate this exception will
