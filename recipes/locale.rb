@@ -25,7 +25,7 @@ when 'debian'
   execute 'fix_locale' do
     command "/usr/sbin/update-locale LANG=#{node['platformstack']['locale']}"
     user 'root'
-    action 'run'
+    action :run
     not_if { lxc? }
   end
 when 'rhel'
@@ -37,7 +37,7 @@ when 'rhel'
     variables(
       cookbook_name: cookbook_name
     )
-    action 'create'
+    action :create
     not_if { lxc? }
   end
 end
