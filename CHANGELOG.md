@@ -1,5 +1,5 @@
 # 3.0.4
-- Bump for dev
+- Rewrite many chef actions into symbols from strings, per https://github.com/rackspace-cookbooks/platformstack/pull/188.
 
 # 3.0.3
 - Make sure nothing is done about cloud-monitoring if the the is set to false
