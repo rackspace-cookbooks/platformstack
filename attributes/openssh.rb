@@ -33,4 +33,12 @@ default['openssh']['server']['password_authentication'] = 'no'
 default['openssh']['server']['challenge_response_authentication'] = 'no'
 default['openssh']['server']['allow_tcp_forwarding'] = 'no'
 default['openssh']['server']['use_privilege_separation'] = 'yes'
-default['openssh']['server']['subsystem'] = 'sftp   /usr/libexec/sftp-server'
+
+case node['platform_family']
+when 'rhel', 'fedora'
+  default['openssh']['server']['subsystem'] = 'sftp /usr/libexec/openssh/sftp-server'
+when 'debian'
+  default['openssh']['server']['subsystem'] = 'sftp  /usr/lib/openssh/sftp-server'
+else
+  default['openssh']['server']['subsystem'] = 'sftp   /usr/libexec/sftp-server'
+end
