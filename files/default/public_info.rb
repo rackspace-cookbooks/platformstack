@@ -16,18 +16,21 @@
 # limitations under the License.
 
 require 'json'
+require 'net/http'
 
 Ohai.plugin(:Publicinfo) do
   provides 'public_info'
 
   collect_data(:linux) do
-    require 'rest-client'
-    url = 'http://whoami.rackops.org/api'
+    uri = URI.parse('http://whoami.rackops.org/api')
     # Handle errors and no response for whoami.rackops.org
     begin
-      response = RestClient.get(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      response = http.get(uri.request_uri).body
     rescue
-      response = RestClient.get('http://dazzlepod.com/ip/me.json')
+      uri = URI.parse('http://dazzlepod.com/ip/me.json')
+      http = Net::HTTP.new(uri.host, uri.port)
+      response = http.get(uri.request_uri).body
     end
     results = JSON.parse(response)
     if results.nil?
