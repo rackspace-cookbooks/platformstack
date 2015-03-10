@@ -8,11 +8,6 @@
 #
 include_recipe 'chef-sugar'
 
-# ensure rest-client gem is available
-chef_gem 'rest-client' do
-  action :nothing
-end.run_action(:install)
-
 # Load the ohai recipe to populate node['ohai']
 include_recipe 'ohai'
 
