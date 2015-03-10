@@ -17,10 +17,6 @@ describe 'platformstack::public_info' do
         # we can use anything here to test it later
         _property = load_platform_properties(platform: platform, platform_version: version)
 
-        it 'installs the rest-client gem' do
-          expect(chef_run).to install_chef_gem('rest-client')
-        end
-
         it 'creates the directory for ohai plugins' do
           expect(chef_run).to create_directory('/etc/chef/ohai_plugins')
         end
