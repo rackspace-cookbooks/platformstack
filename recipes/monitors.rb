@@ -44,7 +44,7 @@ if node['platformstack']['cloud_monitoring']['enabled'] == true
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
       command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
-      action 'run'
+      action :run
       # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
     end
@@ -213,6 +213,6 @@ end
 
 service 'rackspace-monitoring-agent' do
   supports start: true, status: true, stop: true, restart: true
-  action %w(enable start)
+  action [:enable, :start]
   only_if { node['platformstack']['cloud_monitoring']['enabled'] == true }
 end
