@@ -1,3 +1,7 @@
+# 1.5.4
+
+- Switch to symbols from strings for resource actions, to support chef 12.1.x and greater
+
 # 1.5.3
 
 - Disable force upgrade of omnibus
