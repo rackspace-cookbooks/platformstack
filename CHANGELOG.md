@@ -1,3 +1,8 @@
+# 3.1.0
+
+- node['openssh']['server']['subsystem'] supports more platforms
+- removed rest-client (removed in chef12 as well) in favor of net/http
+
 # 3.0.4
 - Rewrite many chef actions into symbols from strings, per https://github.com/rackspace-cookbooks/platformstack/pull/188.
 
