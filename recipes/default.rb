@@ -49,7 +49,6 @@ ruby_block 'platformstack' do # ~FC014
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
     run_context.include_recipe('rsyslog::client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
-    run_context.include_recipe('slack_handler') if node['platformstack']['slack_handler']['enabled'] == true
     run_context.include_recipe('omnibus_updater') if node['platformstack']['omnibus_updater']['enabled'] == true
     run_context.include_recipe('consul::install_binary') if node['platformstack']['consul']['enabled'] == true
     run_context.include_recipe('platformstack::monitors') if node['platformstack']['cloud_monitoring']['enabled'] == true
@@ -61,3 +60,4 @@ ruby_block 'platformstack' do # ~FC014
 end
 
 include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
+include_recipe('slack_handler') if node['platformstack']['slack_handler']['enabled'] == true
