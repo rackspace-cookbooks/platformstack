@@ -50,6 +50,7 @@ describe 'platformstack::default' do
             end
           end
 
+          # don't include it if node['newrelic']['license'] not set
           it 'includes newrelic monitoring' do
             expect(chef_run).to include_recipe('newrelic::default')
           end
