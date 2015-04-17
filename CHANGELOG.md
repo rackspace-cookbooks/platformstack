@@ -1,3 +1,7 @@
+# 3.1.1
+
+- Pin back git cookbook to avoid bug described in https://github.com/rackspace-cookbooks/platformstack/issues/198.
+
 # 3.1.0
 
 - node['openssh']['server']['subsystem'] supports more platforms
