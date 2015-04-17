@@ -60,4 +60,4 @@ ruby_block 'platformstack' do # ~FC014
   end
 end
 
-include_recipe('newrelic::default') unless node['newrelic']['license'].nil?
+include_recipe('newrelic::default') if node['newrelic']['license'] && !node['newrelic']['license'].blank?
