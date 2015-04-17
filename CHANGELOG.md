@@ -1,3 +1,9 @@
+# 3.1.2
+
+- Unpin git cookbook (#200)
+- Add additional packages (#201)
+- Do not pass false for NR license (#202)
+
 # 3.1.1
 
 - Pin back git cookbook to avoid bug described in https://github.com/rackspace-cookbooks/platformstack/issues/198.
