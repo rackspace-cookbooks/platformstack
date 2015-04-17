@@ -16,6 +16,7 @@ depends 'chef-client'
 depends 'chef-sugar'
 depends 'client-rekey'
 depends 'consul'
+depends 'git'
 depends 'java'
 depends 'motd-tail', '~> 2.0'
 depends 'newrelic'
@@ -33,9 +34,6 @@ depends 'timezone-ii'
 depends 'user', '~> 0.3'
 depends 'yum'
 depends 'slack_handler'
-
-# until https://github.com/rackspace-cookbooks/platformstack/issues/198
-depends 'git', '= 4.1.0'
 
 # conflicts with any version @ 2.0.0 of this cookbook
 conflicts 'rackops_rolebook'
