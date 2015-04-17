@@ -1,3 +1,7 @@
+# 3.1.3
+
+- Remove .blank? in favor of .empty?
+
 # 3.1.2
 
 - Unpin git cookbook (#200)
