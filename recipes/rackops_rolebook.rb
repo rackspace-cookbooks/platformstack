@@ -36,6 +36,8 @@ admin_packages = %w(
   zip
   lsof
   strace
+  tmux
+  git
 )
 
 case node['platform_family']
