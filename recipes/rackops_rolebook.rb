@@ -36,13 +36,13 @@ admin_packages = %w(
   zip
   lsof
   strace
-  tmux
   git
 )
 
 case node['platform_family']
 when 'debian'
   admin_packages.push('vim')
+  admin_packages.push('tmux')
   admin_packages.push('htop') # htop not available in cent/rhel w/o epel
   node.override['apt']['compile_time_update'] = true
   include_recipe 'apt'
