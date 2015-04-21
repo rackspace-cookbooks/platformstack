@@ -1,3 +1,7 @@
+# 3.1.4
+
+- Only install tmux on Ubuntu (#205).
+
 # 3.1.3
 
 - Remove .blank? in favor of .empty?
