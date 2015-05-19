@@ -45,7 +45,6 @@ ruby_block 'platformstack' do # ~FC014
       run_context.include_recipe('chef-client')
     end
     run_context.include_recipe('postfix') if node['platformstack']['postfix']['enabled'] == true
-    run_context.include_recipe('rackspace_cloudbackup') if node['platformstack']['cloud_backup']['enabled'] == true
     run_context.include_recipe('statsd') if node['platformstack']['statsd']['enabled'] == true
     run_context.include_recipe('rsyslog::client') if node['platformstack']['logstash_rsyslog']['enabled'] == true
     run_context.include_recipe('client-rekey') if node['platformstack']['client_rekey']['enabled'] == true
@@ -60,4 +59,5 @@ ruby_block 'platformstack' do # ~FC014
   end
 end
 
-include_recipe('newrelic::default') if node['newrelic']['license'] && !node['newrelic']['license'].empty?
+include_recipe('rackspace_cloudbackup') if node['platformstack']['cloud_backup']['enabled'] == true
+include_recipe('newrelic::default') if node.deep_fetch('newrelic', 'license') && !node.deep_fetch('newrelic', 'license').empty?
