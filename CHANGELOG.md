@@ -1,3 +1,7 @@
+# 3.1.5
+
+- Run rackspace_cloudbackup normally (not in a ruby block at the end of the run)
+
 # 3.1.4
 
 - Only install tmux on Ubuntu (#205).
