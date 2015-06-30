@@ -19,6 +19,9 @@
 # limitations under the License.
 #
 
+cloud_username = Platformstack.get_runstate_or_attr(node, 'rackspace', 'cloud_credentials', 'username')
+cloud_api_key = Platformstack.get_runstate_or_attr(node, 'rackspace', 'cloud_credentials', 'api_key')
+
 case node['platform_family']
 when 'debian'
   apt_repository 'monitoring' do
@@ -43,7 +46,7 @@ if node['platformstack']['cloud_monitoring']['enabled'] == true
   package 'rackspace-monitoring-agent'
   if node.key?('cloud')
     execute 'agent-setup-cloud' do
-      command "rackspace-monitoring-agent --setup --username #{node['rackspace']['cloud_credentials']['username']} --apikey #{node['rackspace']['cloud_credentials']['api_key']}"
+      command "rackspace-monitoring-agent --setup --username #{cloud_username} --apikey #{cloud_api_key}"
       action :run
       # the filesize is zero if the agent has not been configured
       only_if { File.size?('/etc/rackspace-monitoring-agent.cfg').nil? }
