@@ -12,7 +12,6 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
   log_level: ::LOG_LEVEL
 }
 
-# rubocop:disable Metrics/AbcSize
 def node_resources(node)
   node.set['newrelic']['license'] = 'dummy_value'
 
