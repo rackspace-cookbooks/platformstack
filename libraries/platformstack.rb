@@ -18,4 +18,14 @@ module Platformstack
     # return the preferred value first, followed by the deprecated one
     current_value || deprecated_value
   end
+
+  def self.get_runstate_or_attr(current_node, *attr)
+    require 'chef/sugar'
+    run_state_key = attr.join('_')
+    if current_node.run_state.key?(run_state_key)
+      current_node.run_state[run_state_key]
+    else
+      current_node.deep_fetch(*attr)
+    end
+  end
 end
