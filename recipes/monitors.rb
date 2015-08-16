@@ -22,17 +22,17 @@
 case node['platform_family']
 when 'debian'
   apt_repository 'monitoring' do
-    uri "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['lsb']['release']}-x86_64"
+    uri "http://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['lsb']['release']}-x86_64"
     distribution 'cloudmonitoring'
     components ['main']
-    key 'https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc'
+    key 'http://monitoring.api.rackspacecloud.com/pki/agent/linux.asc'
     action :add
   end
 when 'rhel'
   yum_repository 'monitoring' do
     description 'Rackspace Cloud Monitoring agent repo'
-    baseurl "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['platform_version'][0]}-x86_64"
-    gpgkey "https://monitoring.api.rackspacecloud.com/pki/agent/#{node['platform']}-#{node['platform_version'][0]}.asc"
+    baseurl "http://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['platform_version'][0]}-x86_64"
+    gpgkey "http://monitoring.api.rackspacecloud.com/pki/agent/#{node['platform']}-#{node['platform_version'][0]}.asc"
     enabled true
     gpgcheck true
     action :add
