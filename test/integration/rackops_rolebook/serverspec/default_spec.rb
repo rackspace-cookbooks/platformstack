@@ -14,7 +14,7 @@ admin_packages = %w(
   strace
 )
 
-case os[:family]  # redHat, ubuntu, debian and so on
+case os[:family] # redHat, ubuntu, debian and so on
 when 'redhat'
   admin_packages << 'vim-minimal'
 when 'ubuntu'
@@ -29,7 +29,7 @@ admin_packages.each do |pkg|
 end
 
 describe file('/etc/profile.d/editor.sh') do
-  case os[:family]  # redHat, ubuntu, debian and so on
+  case os[:family] # redHat, ubuntu, debian and so on
   when 'redhat'
     editor = 'vi'
   when 'ubuntu'

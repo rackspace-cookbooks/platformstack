@@ -99,7 +99,7 @@ default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platf
 default['platformstack']['cloud_monitoring']['remote_http']['name']     = []
 
 # arbitrary / non-service-monitors data structure for any arbitrary template
-default['platformstack']['cloud_monitoring']['custom_monitors']['name']         = []
+default['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
 # Currently for arbitrary monitoring, the recipe that sets up the monitor should add:
 # node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('<service_name>')
 # and then populate node['platformstack']['cloud_monitoring'][service_name][setting] with your values
