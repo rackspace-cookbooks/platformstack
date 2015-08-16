@@ -12,7 +12,6 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
   log_level: ::LOG_LEVEL
 }
 
-# rubocop:disable Metrics/AbcSize
 def node_resources(node)
   node.set['newrelic']['license'] = 'dummy_value'
 
@@ -22,7 +21,6 @@ def node_resources(node)
   # chefspec can't handle the empty nested array
   node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
 end
-# rubocop:enable Metrics/AbcSize
 
 def stub_resources
   stub_command('which sudo').and_return('/usr/bin/sudo')
