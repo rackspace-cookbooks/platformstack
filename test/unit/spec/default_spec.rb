@@ -41,7 +41,6 @@ describe 'platformstack::default' do
               rsyslog::client
               slack_handler
               omnibus_updater
-              consul::install_binary
               platformstack::monitors
               platformstack::iptables
               openssh
