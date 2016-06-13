@@ -14,7 +14,7 @@ include_recipe 'ohai'
 # Fail in a slightly more descriptive manner than the directory block below
 #  if the plugin directory is unset.
 if node['ohai'] && node['ohai']['plugin_path'].nil?
-  fail 'ERROR: Ohai plugin path not set'
+  raise 'ERROR: Ohai plugin path not set'
 end
 
 # Ensure the plugin directory exists
@@ -46,5 +46,5 @@ if publicinfo_remoteip =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
   # Assign the external_ip tag to the node if node['public_info']['remote_ip'] looks like an IP.
   tag("RemoteIP:#{publicinfo_remoteip}")
 else
-  fail "ERROR: Unable to determine server remote IP. (Got \"#{publicinfo_remoteip}\") Halting to avoid use of bad data."
+  raise "ERROR: Unable to determine server remote IP. (Got \"#{publicinfo_remoteip}\") Halting to avoid use of bad data."
 end
