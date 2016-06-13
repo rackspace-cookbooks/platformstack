@@ -26,6 +26,9 @@ IfUnlessModifier:
 CyclomaticComplexity:
   Max: 10
 
+AbcSize:
+  Max: 25
+
 # Disable Single Space before first arg
 SpaceBeforeFirstArg:
   Enabled: false

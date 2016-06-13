@@ -13,7 +13,7 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
 }.freeze
 
 def node_resources(node)
-  stub_search("node", "role:loghost").and_return([])
+  stub_search('node', 'role:loghost').and_return([])
   node.set['newrelic']['license'] = 'dummy_value'
 
   # need to stub this search that this causes, then set this to 'a,b,c'
