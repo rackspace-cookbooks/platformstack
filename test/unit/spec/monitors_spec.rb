@@ -54,19 +54,6 @@ describe 'platformstack::monitors' do
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-network.yaml')
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-_slash_.yaml')
           expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-plugin-chef-client.yaml')
-
-          if platform == 'ubuntu' && version == '12.04'
-            expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-_slash_boot.yaml')
-            expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-_slash_vagrant.yaml')
-          end
-
-          if platform == 'ubuntu' && version == '14.04'
-            expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-_slash_sys_slash_fs_slash_pstore.yaml')
-          end
-
-          if platform == 'centos'
-            expect(chef_run).to create_template('/etc/rackspace-monitoring-agent.conf.d/monitoring-filesystem-_slash_home.yaml')
-          end
         end
 
         it 'adds a repository for monitoring' do

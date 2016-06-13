@@ -26,8 +26,11 @@ IfUnlessModifier:
 CyclomaticComplexity:
   Max: 10
 
+AbcSize:
+  Max: 25
+
 # Disable Single Space before first arg
-SingleSpaceBeforeFirstArg:
+SpaceBeforeFirstArg:
   Enabled: false
 
 # Don't force a word array unless 5 elements

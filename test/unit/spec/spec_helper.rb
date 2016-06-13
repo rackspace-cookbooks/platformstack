@@ -10,10 +10,10 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
 ::LOG_LEVEL = :fatal
 ::CHEFSPEC_OPTS = {
   log_level: ::LOG_LEVEL
-}
+}.freeze
 
-# rubocop:disable Metrics/AbcSize
 def node_resources(node)
+  stub_search('node', 'role:loghost').and_return([])
   node.set['newrelic']['license'] = 'dummy_value'
 
   # need to stub this search that this causes, then set this to 'a,b,c'
@@ -21,8 +21,10 @@ def node_resources(node)
 
   # chefspec can't handle the empty nested array
   node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
+
+  # disable consul
+  node.set['platformstack']['consul']['enabled'] = false
 end
-# rubocop:enable Metrics/AbcSize
 
 def stub_resources
   stub_command('which sudo').and_return('/usr/bin/sudo')

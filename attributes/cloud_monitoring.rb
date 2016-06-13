@@ -99,7 +99,7 @@ default['platformstack']['cloud_monitoring']['service_mon']['cookbook'] = 'platf
 default['platformstack']['cloud_monitoring']['remote_http']['name']     = []
 
 # arbitrary / non-service-monitors data structure for any arbitrary template
-default['platformstack']['cloud_monitoring']['custom_monitors']['name']         = []
+default['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
 # Currently for arbitrary monitoring, the recipe that sets up the monitor should add:
 # node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'].push('<service_name>')
 # and then populate node['platformstack']['cloud_monitoring'][service_name][setting] with your values
@@ -122,9 +122,9 @@ default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm'][
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['notification_plan_id'] = 'npMANAGED'
 default['platformstack']['cloud_monitoring']['plugins']['chef-client']['alarm']['criteria'] = ''
 
-if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
-  default['platformstack']['cloud_monitoring']['enabled'] = false
-else
-  default['platformstack']['cloud_monitoring']['enabled'] = true
-end
+default['platformstack']['cloud_monitoring']['enabled'] = if node['rackspace']['cloud_credentials']['username'].nil? || node['rackspace']['cloud_credentials']['api_key'].nil?
+                                                            false
+                                                          else
+                                                            true
+                                                          end
 default['platformstack']['cloud_monitoring']['notification_plan_id'] = 'npTechnicalContactsEmail'

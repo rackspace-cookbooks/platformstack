@@ -25,7 +25,7 @@ describe 'platformstack::default' do
               # node.set['platformstack']['client_rekey']['enabled'] = true
               node.set['platformstack']['slack_handler']['enabled'] = true
               node.set['platformstack']['omnibus_updater']['enabled'] = true
-              node.set['platformstack']['consul']['enabled'] = true
+              node.set['platformstack']['consul']['enabled'] = false
               node.set['platformstack']['cloud_monitoring']['enabled'] = true
               node.set['platformstack']['iptables']['enabled'] = true
             end.converge(described_recipe)
@@ -41,7 +41,6 @@ describe 'platformstack::default' do
               rsyslog::client
               slack_handler
               omnibus_updater
-              consul::install_binary
               platformstack::monitors
               platformstack::iptables
               openssh
