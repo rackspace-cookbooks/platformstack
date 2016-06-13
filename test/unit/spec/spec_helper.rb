@@ -13,6 +13,7 @@ Dir['./test/unit/spec/support/**/*.rb'].sort.each { |f| require f }
 }.freeze
 
 def node_resources(node)
+  stub_search("node", "role:loghost").and_return([])
   node.set['newrelic']['license'] = 'dummy_value'
 
   # need to stub this search that this causes, then set this to 'a,b,c'
@@ -20,6 +21,9 @@ def node_resources(node)
 
   # chefspec can't handle the empty nested array
   node.default['platformstack']['cloud_monitoring']['custom_monitors']['name'] = []
+
+  # disable consul
+  node.set['platformstack']['consul']['enabled'] = false
 end
 
 def stub_resources
