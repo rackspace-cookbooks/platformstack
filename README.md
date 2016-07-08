@@ -2,7 +2,7 @@
 [![Circle CI](https://circleci.com/gh/rackspace-cookbooks/platformstack/tree/master.svg?style=svg)](https://circleci.com/gh/rackspace-cookbooks/platformstack/tree/master)
 # PlatformStack
 
-This cookbook installs and sets up commonly used things that we consider useful or standard (such as setting the timezone to UTC). This cookbook installs things that are and are NOT specific to DevOps support level at Rackspace. Much of the distinction is made in things named 'rackops' (managed) vs. 'platform' (managed and unmanaged). This cookbook was merged with one originally named 'rackops_rolebook' as [part of RFC 006](https://github.com/AutomationSupport/devops-rfc/blob/master/rfc-006-combine_commons.md).
+This cookbook installs and sets up commonly used things that we consider useful or standard. This cookbook installs things that are and are NOT specific to DevOps support level at Rackspace. Much of the distinction is made in things named 'rackops' (managed) vs. 'platform' (managed and unmanaged). This cookbook was merged with one originally named 'rackops_rolebook' as [part of RFC 006](https://github.com/AutomationSupport/devops-rfc/blob/master/rfc-006-combine_commons.md).
 
 ## general notes
 
@@ -38,15 +38,12 @@ Sets up monitoring for the following by default:
 You can set the period and timeout along with the critical and warning thresholds via attributes, as well as configure custom monitors. Check the cloud_monitoring attributes file for more info.
 
 #### default
-Sets the timezone to UTC by default.
-
 We run last in the run list via a notification / ruby_block trick to run last so that we can collect all overrides for node attributes.
 
 This cookbook sets up the following (default disabled will be noted by a '*')
 - apt:: default if debian
 - locale
 - ntp
-- timezone
 - auto-patching
 - chef-client
 - postfix

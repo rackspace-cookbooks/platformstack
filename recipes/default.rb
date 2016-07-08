@@ -24,7 +24,6 @@ include_recipe 'chef-sugar'
 node.default['authorization']['sudo']['include_sudoers_d'] = true
 node.default['chef-client']['log_file'] = '/var/log/chef/client.log'
 node.default['apt']['compile_time_update'] = true
-node.default['tz'] = 'Etc/UTC'
 
 include_recipe 'apt::default' if platform_family?('debian')
 
@@ -37,7 +36,6 @@ ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('timezone-ii')
     run_context.include_recipe('auto-patch')
     unless Chef::Config[:solo] == true
       run_context.include_recipe('chef-client::delete_validation')
