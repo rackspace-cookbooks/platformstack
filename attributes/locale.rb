@@ -19,3 +19,4 @@
 #
 
 default['platformstack']['locale'] = 'en_US.UTF-8'
+default['platformstack']['timezone-ii']['enabled'] = true

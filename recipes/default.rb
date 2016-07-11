@@ -37,7 +37,7 @@ ruby_block 'platformstack' do # ~FC014
   block do
     run_context.include_recipe('platformstack::locale')
     run_context.include_recipe('ntp')
-    run_context.include_recipe('timezone-ii')
+    run_context.include_recipe('timezone-ii') if node['platformstack']['timezone-ii']['enabled'] == true
     run_context.include_recipe('auto-patch')
     unless Chef::Config[:solo] == true
       run_context.include_recipe('chef-client::delete_validation')
